@@ -1,0 +1,83 @@
+# adapted from https://github.com/PowerShell/PowerShell/blob/master/.gitignore, https://gist.github.com/kmorcinek/2710267, https://github.com/github/gitignore/blob/master/Node.gitignore
+
+# build directories
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# NuGet
+*.nupkg
+**/packages/*
+
+# Visual Studio, VSCode per-user solution files
+*.suo
+*.ssms_suo
+*.sqlsuo
+*.user
+*.rsuser
+
+# Reporting Services data files
+*.rdl.data
+
+# Visual Studio IDE directory
+.vs/
+
+# VSCode directories that are not at the repository root
+/**/.vscode/
+
+# ignore executables
+*.exe
+*.msi
+*.appx
+*.msix
+
+# ignore binaries, symbols, build files
+*.pdb
+*.dll
+*.obj
+*.scc
+
+# ignore PowerShell profiles in repo directory
+.profile.ps1
+
+# logs
+[Ll]og/
+[Ll]ogs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ignore Node-specific directories & files
+node_modules/
+.npm
+
+# Node runtime files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# coverage directory
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# dotenv environment files
+.env
+.env.*
+
+# temp files
+[Tt]humbs.db
+.*~
+~$*
+*~
+*.tmp
+*.temp
+*.DS_Store
+
+# other
