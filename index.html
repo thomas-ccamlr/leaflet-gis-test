@@ -88,16 +88,16 @@
   </script>
 </head>
 <body>
+  <!-- map DIV -->
+  <div id="map" role="main" aria-label="Map, pan with arrow keys, zoom with plus and minus keys"></div>
+
   <!-- show message advising the site does not work without javascript -->
   <noscript>
     <div style="height: 220px; display: flex; align-items: center; justify-content: center; margin-left: 40px; margin-right: 40px">
       <p style="font-size: 40px; text-align: center">You need to enable javascript in your browser to use this web site.</p>
     </div>
   </noscript>
-
-  <!-- map DIV -->
-  <div id="map" aria-label="Map, pan with arrow keys, zoom with plus and minus keys"></div>
-
+  
   <!-- Leaflet.js script from CDN -->
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="anonymous"></script>
   <!-- Proj4.js from CDN, see https://github.com/proj4js/proj4js -->
