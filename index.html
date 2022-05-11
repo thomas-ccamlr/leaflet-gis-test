@@ -230,6 +230,65 @@
     // add watermark control to map (defaults to upper-right position)
     map.addControl(new L.Control.Watermark());
 
+    // create a custom SVG icon for VMEs
+    // adapted from https://onestepcode.com/leaflet-markers-svg-icons/
+    const svgVmeIcon = L.divIcon({
+      html: '<svg width="10" height="10" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#FF8A6D"/></svg>',
+      className: 'vme-icon',
+      // 10 by 10 pixel circle
+      iconSize: [10, 10],
+      // icon anchor in center of circle
+      iconAnchor: [5, 5]
+    });
+
+    // function called once for each created feature
+    // add popup tooltip from "name" (and "description" if it exists) properties
+    // in GeoJSON
+    // adapted from https://javascript.tutorialink.com/dynamically-loading-multiple-external-geojson-data-files-and-calling-multiple-layers-dynamically-using-leaflet/
+    const addPopupFromFeatureProperties = (feature, layer) => {
+      // create tooltip text from "name" and "description" properties
+      // start with initially empty tooltip
+      let tooltip = '';
+      // if "name" property exists, append to tooltip
+      if (feature.properties && feature.properties.name) {
+        tooltip += '<strong>' + feature.properties.name + '&nbsp;</strong>';
+      }
+      // if "description" property exists, append to tooltip
+      if (feature.properties && feature.properties.description) {
+        tooltip += feature.properties.description;
+      }
+      // if we have tooltip text, add it
+      if (tooltip && tooltip !== '') {
+        layer.bindPopup(tooltip);
+      }
+    };
+
+    // function to style GeoJSON points as custom VME icons
+    const vmeIconPoint = (geoJsonPoint, latlng) => {
+      return L.marker(latlng, { icon: svgVmeIcon });
+    };
+    
+    // function to load a GeoJSON file in passed URL
+    // URL can be relative
+    const loadGeoJSON = async (url) => {
+      // load the VME JSON file
+      const response = await fetch(url);
+      // if the file was not able to be loaded, error and leave
+      if (!response.ok) {
+        const message = `There was an error loading the GeoJSON file "${url}": ${response.status}`;
+        throw new Error(message);
+      }
+      // if we get to here, we got a response; convert response (string) to JSON object
+      const json = await response.json();
+      // return JSON object
+      return json;
+    };
+    
+    // load VMEs from GeoJSON file
+    loadGeoJSON('./layers/ccamlr-vmes.json').then(data => {
+      // add as a GeoJSON layer, call custom function to style points as VME icons, and add popup tooltips
+      L.geoJSON(data, { pointToLayer: vmeIconPoint, onEachFeature: addPopupFromFeatureProperties }).addTo(map);
+    });
   </script>
 </body>
 </html>
