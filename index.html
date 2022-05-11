@@ -96,7 +96,7 @@
   </noscript>
 
   <!-- map DIV -->
-  <div id="map"></div>
+  <div id="map" aria-label="Map, pan with arrow keys, zoom with plus and minus keys"></div>
 
   <!-- Leaflet.js script from CDN -->
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="anonymous"></script>
@@ -192,7 +192,7 @@
 
     // overall attribution and reference for CRS (will be merged with layer attributions)
     // by default, bottom-right corner
-    map.attributionControl.addAttribution('&copy; <a href="http://ccamlr.org" rel="noopener noreferrer">CCAMLR</a> | Projection: <a href="https://spatialreference.org/ref/epsg/wgs-84-antarctic-polar-stereographic/" rel="noopener noreferrer">EPSG3031</a> | <a href="https://github.com/thomas-ccamlr/leaflet-gis-test/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>');
+    map.attributionControl.addAttribution('&copy; <a href="http://ccamlr.org" rel="noopener noreferrer">CCAMLR</a> | Projection: <a href="https://spatialreference.org/ref/epsg/wgs-84-antarctic-polar-stereographic/" rel="noopener noreferrer">EPSG:3031</a> | <a href="https://github.com/thomas-ccamlr/leaflet-gis-test/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>');
 
     // if on mobile, remove zoom control
     // not needed on mobile due to pinch zooming, double-tap zooming
