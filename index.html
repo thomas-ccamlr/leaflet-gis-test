@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <!-- don't zoom the page (will instead zoom on map) -->
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
-  <meta name="description" content="CCAMLR interactive web map demo">
+  <meta name="description" content="CCAMLR interactive web map demo using Leaflet">
 
   <title>CCAMLR interactive web map demo</title>
 
   <!-- favicon -->
-  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico?v=1">
 
   <!-- pre-connect to CDN, also with crossorigin -->
   <link rel="preconnect" href="https://unpkg.com">
@@ -214,12 +214,16 @@
       onAdd: () => {
         const img = L.DomUtil.create('img');
         // set attributes of image
-        img.src = './logo.png';
-        // hard-code size to 125 pixels; will retain same size
-        // when map is zoomed
+        img.src = './logo.png?v=1';
+        // hard-code size to 125 pixels; will retain same size when map is zoomed
         img.style.width = '125px';
         img.style.height = '125px';
-        img.style.opacity = '0.9';
+        // make image partially transparent
+        img.style.opacity = '0.7';
+        // add accessibility hints (as the image is decorative, empty description)
+        img.alt = '';
+        img.role = 'presentation';
+        // return image element
         return img;
       }
     });
