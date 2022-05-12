@@ -117,6 +117,9 @@
   <script type="text/javascript">
     'use strict';
 
+    // for linting, globally define "L" (Leaflet)
+    /* global L */
+
     // calculate user's pixel ratio, better for maps on high pixel-density screens
     // default to 1 if not available
     // from https://tile.gbif.org/ui/3031/EPSG3031-leaflet.js
@@ -162,8 +165,7 @@
     // set up permalink/URL hash, adapted from https://github.com/MarcChasse/leaflet.Permalink
     // default zoom level can see whole Antarctic continent for desktops
     // zoom out for high pixel density on mobile (3)
-    // center on 90 degrees south
-    const map_url_hash = L.Permalink.getMapLocation(pixel_ratio > 1 ? 2 : 3, [-90, 0]);
+    const map_url_hash = L.Permalink.getMapLocation(pixel_ratio > 1 ? 2 : 3);
 
     // set map view (center, zoom, CRS)
     const map = L.map('map', {
@@ -178,13 +180,6 @@
       // disable jumping to a copy of the map (plays up on mobile)
       worldCopyJump: false
     });
-
-    // initialise permalink/URL hash
-    // when page is initially loaded, no impact; when user scrolls or zooms, URL
-    // will be updated with coordinates and zoom appended to URL like "#-78,-109,3z"
-    // allows user will retain view (center, zoom) after page reload, or bookmark
-    // a specific view
-    L.Permalink.setup(map);
 
     // basemap (from https://tile.gbif.org/ui/)
     // use light style, SRS 3031
@@ -203,6 +198,13 @@
       // attribution
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer">OpenStreetMap</a> contributors, &copy; <a href="https://openmaptiles.org" rel="noopener noreferrer">OpenMapTiles</a>'
     }).addTo(map);
+
+    // initialise permalink/URL hash
+    // when page is initially loaded, no impact; when user scrolls or zooms, URL
+    // will be updated with coordinates and zoom appended to URL like "#-78,-109,3z"
+    // allows user will retain view (center, zoom) after page reload, or bookmark
+    // a specific view
+    L.Permalink.setup(map);
 
     // overall attribution and reference for CRS (will be merged with layer attributions)
     // by default, bottom-right corner
