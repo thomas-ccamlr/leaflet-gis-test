@@ -105,7 +105,7 @@
   <!-- Proj4Leaflet from CDN, see https://github.com/kartena/Proj4Leaflet -->
   <script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js" integrity="sha512-NA+0vegFw6AiYXT23H+hk43LxqwpJkkviK/vHTESeu+jUpvWssfQRWWqSR07aUhGSKtfpkdlE8YFrVaHsnb3jw==" crossorigin="anonymous"></script>
 
-  <!-- Pouch db for in-browser caching from CDN, see https://pouchdb.com/ -->
+  <!-- PouchDB for in-browser caching from CDN, see https://pouchdb.com/ -->
   <script src="https://unpkg.com/pouchdb@^5.2.0/dist/pouchdb.js" integrity="sha512-V3KeJQJGLxtQTBpiZCjNNxVMoTgT1L8nd6/HZ9U7LrVM2CLKZttqZhyMibZetm7KGr8WO6iYmsdpdwPEltE2yA==" crossorigin="anonymous"></script>
   <!-- Leaflet.TileLayer.PouchDBCached from CDN, see https://github.com/MazeMap/Leaflet.TileLayer.PouchDBCached -->
   <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js" integrity="sha512-1nmvAgS3BuRHdL/jYmw+Y55aagEd0xllTA9WTAAqkObDcemLTmqB0jJfLhhdN4drvX7WY671Evj+11i2U+DKTA==" crossorigin="anonymous"></script>
@@ -169,7 +169,7 @@
     const map = L.map('map', {
       // center and zoom from permalink
       center: map_url_hash.center,
-      zoom: map_url_hash.zoom || 2,
+      zoom: map_url_hash.zoom,
       // minimum & maximum zoom
       minZoom: 1,
       maxZoom: max_zoom,
