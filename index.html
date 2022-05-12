@@ -110,6 +110,9 @@
   <!-- Leaflet.TileLayer.PouchDBCached from CDN, see https://github.com/MazeMap/Leaflet.TileLayer.PouchDBCached -->
   <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js" integrity="sha512-1nmvAgS3BuRHdL/jYmw+Y55aagEd0xllTA9WTAAqkObDcemLTmqB0jJfLhhdN4drvX7WY671Evj+11i2U+DKTA==" crossorigin="anonymous"></script>
 
+  <!-- Leaflet plugin for permalink/URL hash, served locally, originally from https://github.com/MarcChasse/leaflet.Permalink -->
+  <script src="./scripts/leaflet.permalink.min.js" integrity="sha512-p64i/liUcr00za2WMn8dnb6fzu8Ok86e65VxvYy2dbNgoIAU86yL9Dk/lsuIU0lnDsAWoGVdQ0FbSG1zI2X9yg=="></script>
+
   <!-- scripts for page -->
   <script type="text/javascript">
     'use strict';
@@ -156,13 +159,17 @@
       }
     );
 
+    // set up permalink/URL hash, adapted from https://github.com/MarcChasse/leaflet.Permalink
+    // default zoom level can see whole Antarctic continent for desktops
+    // zoom out for high pixel density on mobile (3)
+    // center on 90 degrees south
+    const map_url_hash = L.Permalink.getMapLocation(pixel_ratio > 1 ? 2 : 3, [-90, 0]);
+
     // set map view (center, zoom, CRS)
     const map = L.map('map', {
-      // 90 degrees south
-      center: [-90, 0],
-      // default zoom level can see whole Antarctic continent for desktops
-      // zoom out for high pixel density on mobile (3)
-      zoom: pixel_ratio > 1 ? 2 : 3,
+      // center and zoom from permalink
+      center: map_url_hash.center,
+      zoom: map_url_hash.zoom || 2,
       // minimum & maximum zoom
       minZoom: 1,
       maxZoom: max_zoom,
@@ -171,6 +178,9 @@
       // disable jumping to a copy of the map (plays up on mobile)
       worldCopyJump: false
     });
+
+    // now that we've loaded tiles, initialise permalink/URL hash
+    L.Permalink.setup(map);
 
     // basemap (from https://tile.gbif.org/ui/)
     // use light style, SRS 3031
