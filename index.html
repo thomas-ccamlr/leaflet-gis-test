@@ -269,7 +269,9 @@
       }
       // if we have tooltip text, add it
       if (tooltip && tooltip !== '') {
-        layer.bindPopup(tooltip);
+        // create a popup with no close button, "#close" interferes with permalink
+        // plugin
+        layer.bindPopup(tooltip, { closeButton: false });
       }
     };
 
