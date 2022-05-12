@@ -179,7 +179,11 @@
       worldCopyJump: false
     });
 
-    // now that we've loaded tiles, initialise permalink/URL hash
+    // initialise permalink/URL hash
+    // when page is initially loaded, no impact; when user scrolls or zooms, URL
+    // will be updated with coordinates and zoom appended to URL like "#-78,-109,3z"
+    // allows user will retain view (center, zoom) after page reload, or bookmark
+    // a specific view
     L.Permalink.setup(map);
 
     // basemap (from https://tile.gbif.org/ui/)
@@ -240,66 +244,90 @@
     // add watermark control to map (defaults to upper-right position)
     map.addControl(new L.Control.Watermark());
 
-    // create a custom SVG icon for VMEs
+    // custom SVG icon for GeoJSON points
     // adapted from https://onestepcode.com/leaflet-markers-svg-icons/
     const svgVmeIcon = L.divIcon({
-      html: '<svg width="10" height="10" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#FF8A6D"/></svg>',
+      // define the SVG code for the icon in HTML
+      // width and height of 10 pixels
+      // circle centered in middle of viewport; radius equal to half of viewport
+      html: '<svg width="10" height="10" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="50%" cy="50%" r="50%" fill="#FF8A6D"/></svg>',
+      // CSS class so can style, hide/show
       className: 'vme-icon',
-      // 10 by 10 pixel circle
+      // 10 by 10 pixel shape
+      // note this is not impacted by zooming map
       iconSize: [10, 10],
-      // icon anchor in center of circle
+      // GeoJSON coordinate for point in center of shape (pixels)
       iconAnchor: [5, 5]
     });
 
-    // function called once for each created feature
-    // add popup tooltip from "name" (and "description" if it exists) properties
-    // in GeoJSON
+    // function called once for each GeoJSON "feature"
+    // add popup HTML tooltip from "name" (and "description" if it exists) properties
     // adapted from https://javascript.tutorialink.com/dynamically-loading-multiple-external-geojson-data-files-and-calling-multiple-layers-dynamically-using-leaflet/
     const addPopupFromFeatureProperties = (feature, layer) => {
-      // create tooltip text from "name" and "description" properties
       // start with initially empty tooltip
       let tooltip = '';
       // if "name" property exists, append to tooltip
       if (feature.properties && feature.properties.name) {
+        // make "name" bold
         tooltip += '<strong>' + feature.properties.name + '&nbsp;</strong>';
       }
       // if "description" property exists, append to tooltip
       if (feature.properties && feature.properties.description) {
         tooltip += feature.properties.description;
       }
-      // if we have tooltip text, add it
+      // if we have tooltip text, add a popup containing the tooltip HTML
       if (tooltip && tooltip !== '') {
-        // create a popup with no close button, "#close" interferes with permalink
+        // create popup with no close button, "#close" interferes with permalink
         // plugin
         layer.bindPopup(tooltip, { closeButton: false });
       }
     };
 
-    // function to style GeoJSON points as custom VME icons
-    const vmeIconPoint = (geoJsonPoint, latlng) => {
-      return L.marker(latlng, { icon: svgVmeIcon });
-    };
-    
     // function to load a GeoJSON file in passed URL
     // URL can be relative
     const loadGeoJSON = async (url) => {
-      // load the VME JSON file
+      // load the passed JSON file
       const response = await fetch(url);
       // if the file was not able to be loaded, error and leave
       if (!response.ok) {
         const message = `There was an error loading the GeoJSON file "${url}": ${response.status}`;
         throw new Error(message);
       }
-      // if we get to here, we got a response; convert response (string) to JSON object
+      // if we get to here, we got a response; convert response (string) to
+      // javascript JSON object
       const json = await response.json();
       // return JSON object
       return json;
     };
     
-    // load VMEs from GeoJSON file
+    // load GeoJSON file with "features" collection, where each "feature" is a point
+    // see https://geojson.org/ for full spec
+    // for example:
+    // {
+    //   "type": "FeatureCollection",
+    //   "features": [
+    //     { 
+    //       "type": "Feature", 
+    //       "geometry": { "type": "Point", "coordinates": [-90, 0] }, 
+    //       "properties": { 
+    //         "name": "...", 
+    //         "description": "..." 
+    //       }
+    //     },
+    //     ...
     loadGeoJSON('./layers/ccamlr-vmes.json').then(data => {
-      // add as a GeoJSON layer, call custom function to style points as VME icons, and add popup tooltips
-      L.geoJSON(data, { pointToLayer: vmeIconPoint, onEachFeature: addPopupFromFeatureProperties }).addTo(map);
+      // add as a GeoJSON layer, call custom function to style points as custom
+      // icons, and add popup tooltips
+      L.geoJSON(data, { 
+        // function to style GeoJSON point as custom icon
+        // called for each feature
+        pointToLayer: (feature, latlng) => {
+          // return marker set to render custom icon
+          return L.marker(latlng, { icon: svgVmeIcon });
+        },
+        // add tooltip for each feature
+        onEachFeature: addPopupFromFeatureProperties 
+      }).addTo(map);
     });
   </script>
 </body>

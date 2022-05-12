@@ -1,58 +1,747 @@
 {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-59.07687093, -63.24749944] },  "properties": { "name": "CCAMLR_VME_481_12", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-56.602408965, -62.614379585] },  "properties": { "name": "CCAMLR_VME_481_13", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-55.428941775, -62.609965375] },  "properties": { "name": "CCAMLR_VME_481_14", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-52.40467149, -63.015715605] },  "properties": { "name": "CCAMLR_VME_481_15", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-56.86233333, -62.765] },  "properties": { "name": "CCAMLR_VME_481_16", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-58.78241667, -63.05] },  "properties": { "name": "CCAMLR_VME_481_17", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-53.999916665, -61.81375] },  "properties": { "name": "CCAMLR_VME_481_18", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-54.964166665, -62.73316667] },  "properties": { "name": "CCAMLR_VME_481_19", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-55.5455833349999, -62.730833335] },  "properties": { "name": "CCAMLR_VME_481_20", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-56.716416665, -62.788] },  "properties": { "name": "CCAMLR_VME_481_21", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-59.780416665, -63.2345] },  "properties": { "name": "CCAMLR_VME_481_22", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-58.611583335, -63.083] },  "properties": { "name": "CCAMLR_VME_481_23", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-58.08341667, -63.00033333] },  "properties": { "name": "CCAMLR_VME_481_24", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-60.062166665, -63.459] },  "properties": { "name": "CCAMLR_VME_481_25", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-59.881666665, -63.212916665] },  "properties": { "name": "CCAMLR_VME_481_26", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-57.44758333, -62.821083335] },  "properties": { "name": "CCAMLR_VME_481_27", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-59.714583335, -63.422833335] },  "properties": { "name": "CCAMLR_VME_481_28", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-55.5066666666667, -61.3375] },  "properties": { "name": "CCAMLR_VME_481_35", "description": "Reported in WG-EMM-12/51" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-55.7088333333334, -60.89975] },  "properties": { "name": "CCAMLR_VME_481_36", "description": "Reported in WG-EMM-12/51" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-54.7013333333333, -61.24475] },  "properties": { "name": "CCAMLR_VME_481_37", "description": "Reported in WG-EMM-12/51" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-54.57625, -61.0635] },  "properties": { "name": "CCAMLR_VME_481_38", "description": "Reported in WG-EMM-12/51" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-55.8744166666667, -61.42825] },  "properties": { "name": "CCAMLR_VME_481_39", "description": "Reported in WG-EMM-12/51" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-56.9146, -63.3861] },  "properties": { "name": "CCAMLR_VME_481_47", "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-56.5364, -63.3085] },  "properties": { "name": "CCAMLR_VME_481_48", "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-60.6225, -63.9276] },  "properties": { "name": "CCAMLR_VME_481_49", "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-62.0014, -64.3004] },  "properties": { "name": "CCAMLR_VME_481_50", "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.522383425, -60.432789615] },  "properties": { "name": "CCAMLR_VME_482_1", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-44.494166665, -60.82975] },  "properties": { "name": "CCAMLR_VME_482_10", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.31091667, -60.433333335] },  "properties": { "name": "CCAMLR_VME_482_11", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.28675, -60.768833335] },  "properties": { "name": "CCAMLR_VME_482_2", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.636583335, -60.70041667] },  "properties": { "name": "CCAMLR_VME_482_3", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-45.128166665, -60.4815] },  "properties": { "name": "CCAMLR_VME_482_31", "description": "Reported in WG-EMM-10/14" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-43.2105833315, -60.87683333] },  "properties": { "name": "CCAMLR_VME_482_32", "description": "Reported in WG-EMM-10/14" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.017083335, -60.712] },  "properties": { "name": "CCAMLR_VME_482_4", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.276916665, -60.92075] },  "properties": { "name": "CCAMLR_VME_482_5", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-45.095, -60.4767] },  "properties": { "name": "CCAMLR_VME_482_51", "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-44.815, -60.5425] },  "properties": { "name": "CCAMLR_VME_482_52", "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-44.2625, -60.6108] },  "properties": { "name": "CCAMLR_VME_482_53", "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-44.760916665, -60.59525] },  "properties": { "name": "CCAMLR_VME_482_6", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.436, -60.429583335] },  "properties": { "name": "CCAMLR_VME_482_7", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-44.32775, -60.6035] },  "properties": { "name": "CCAMLR_VME_482_8", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [-46.53775, -60.633] },  "properties": { "name": "CCAMLR_VME_482_9", "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [142.9904225, -65.7995365] },  "properties": { "name": "CCAMLR_VME_5841_29", "description": "Area closed to bottom fishing within 10-nmile radius of midpoint (CM 22-09)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [140.4650335, -65.660221] },  "properties": { "name": "CCAMLR_VME_5841_30", "description": "Area closed to bottom fishing within 10-nmile radius of midpoint (CM 22-09)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [170.861, -66.934] },  "properties": { "name": "CCAMLR_VME_881_33", "description": "Area closed to bottom fishing within 1.25-nmile radius of midpoint (CM 22-09)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [171.171, -67.169] },  "properties": { "name": "CCAMLR_VME_881_34", "description": "Area closed to bottom fishing within 1.25-nmile radius of midpoint (CM 22-09)" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [164.055133333333, -74.7023333333333] },  "properties": { "name": "CCAMLR_VME_881_40", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [164.091133333333, -74.6934166666667] },  "properties": { "name": "CCAMLR_VME_881_41", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [164.117816666667, -74.6965] },  "properties": { "name": "CCAMLR_VME_881_42", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [164.1216, -74.6995666666667] },  "properties": { "name": "CCAMLR_VME_881_43", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [163.957866666667, -74.7705666666667] },  "properties": { "name": "CCAMLR_VME_881_44", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [163.933883333333, -74.77065] },  "properties": { "name": "CCAMLR_VME_881_45", "description": "Reported in WG-EMM-12/23" } },
-    { "type": "Feature", "geometry": {"type": "Point", "coordinates": [163.956166666667, -74.7750666666667] },  "properties": { "name": "CCAMLR_VME_881_46", "description": "Reported in WG-EMM-12/23" } }
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.07687093,
+          -63.24749944
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_12",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.602408965,
+          -62.614379585
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_13",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.428941775,
+          -62.609965375
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_14",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.40467149,
+          -63.015715605
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_15",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.86233333,
+          -62.765
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_16",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.78241667,
+          -63.05
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_17",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.999916665,
+          -61.81375
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_18",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.964166665,
+          -62.73316667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_19",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.5455833349999,
+          -62.730833335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_20",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.716416665,
+          -62.788
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_21",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.780416665,
+          -63.2345
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_22",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.611583335,
+          -63.083
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_23",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.08341667,
+          -63.00033333
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_24",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.062166665,
+          -63.459
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_25",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.881666665,
+          -63.212916665
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_26",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.44758333,
+          -62.821083335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_27",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.714583335,
+          -63.422833335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_28",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.5066666666667,
+          -61.3375
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_35",
+        "description": "Reported in WG-EMM-12/51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.7088333333334,
+          -60.89975
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_36",
+        "description": "Reported in WG-EMM-12/51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.7013333333333,
+          -61.24475
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_37",
+        "description": "Reported in WG-EMM-12/51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.57625,
+          -61.0635
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_38",
+        "description": "Reported in WG-EMM-12/51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.8744166666667,
+          -61.42825
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_39",
+        "description": "Reported in WG-EMM-12/51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.9146,
+          -63.3861
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_47",
+        "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.5364,
+          -63.3085
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_48",
+        "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.6225,
+          -63.9276
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_49",
+        "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0014,
+          -64.3004
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_481_50",
+        "description": "Reported in WG-EMM-18/35; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.522383425,
+          -60.432789615
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_1",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.494166665,
+          -60.82975
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_10",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.31091667,
+          -60.433333335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_11",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.28675,
+          -60.768833335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_2",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.636583335,
+          -60.70041667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_3",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -45.128166665,
+          -60.4815
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_31",
+        "description": "Reported in WG-EMM-10/14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -43.2105833315,
+          -60.87683333
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_32",
+        "description": "Reported in WG-EMM-10/14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.017083335,
+          -60.712
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_4",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.276916665,
+          -60.92075
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_5",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -45.095,
+          -60.4767
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_51",
+        "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.815,
+          -60.5425
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_52",
+        "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.2625,
+          -60.6108
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_53",
+        "description": "Reported in WG-EMM-18/36; endorsed at SC-CAMLR-XXXVII (Para 6.8)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.760916665,
+          -60.59525
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_6",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.436,
+          -60.429583335
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_7",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.32775,
+          -60.6035
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_8",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.53775,
+          -60.633
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_482_9",
+        "description": "Reported in WG-EMM-09/32 and WG-EMM-09/08, table 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          142.9904225,
+          -65.7995365
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_5841_29",
+        "description": "Area closed to bottom fishing within 10-nmile radius of midpoint (CM 22-09)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.4650335,
+          -65.660221
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_5841_30",
+        "description": "Area closed to bottom fishing within 10-nmile radius of midpoint (CM 22-09)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          170.861,
+          -66.934
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_33",
+        "description": "Area closed to bottom fishing within 1.25-nmile radius of midpoint (CM 22-09)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          171.171,
+          -67.169
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_34",
+        "description": "Area closed to bottom fishing within 1.25-nmile radius of midpoint (CM 22-09)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164.055133333333,
+          -74.7023333333333
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_40",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164.091133333333,
+          -74.6934166666667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_41",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164.117816666667,
+          -74.6965
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_42",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164.1216,
+          -74.6995666666667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_43",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          163.957866666667,
+          -74.7705666666667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_44",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          163.933883333333,
+          -74.77065
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_45",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          163.956166666667,
+          -74.7750666666667
+        ]
+      },
+      "properties": {
+        "name": "CCAMLR_VME_881_46",
+        "description": "Reported in WG-EMM-12/23"
+      }
+    }
   ]
 }
