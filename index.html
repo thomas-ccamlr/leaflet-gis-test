@@ -66,11 +66,44 @@
     .basemap-layer {
       filter: sepia(30%) hue-rotate(160deg) contrast(120%);
     }
+    /* make attribution (bottom right) slightly transparent, helps with dark mode */
+    .leaflet-control-attribution {
+      opacity: 0.8;
+    }
+    /* Area, Sub-Area and Division labels */
+    .asd-label {
+      color: #0077A4;
+    }
 
     /* at very narrow widths (under 660px), move the scale above acknowledgements */
     @media (max-width: 660px) {
       .leaflet-control-scale {
         margin-bottom: 24px !important;
+      }
+    }
+
+    /* basic dark mode, adapted from https://gist.github.com/BrendonKoz/b1df234fe3ee388b402cd8e98f7eedbd */
+    @media (prefers-color-scheme: dark) {      
+      /* map background (overflow) */
+      #map {
+        background-color: #111112;
+      }
+      /* base tiles (note this filter will be added to existing filter(s) */
+      .basemap-layer {
+        filter: brightness(0.5) saturate(0.3) contrast(2);
+      }
+      /* zoom buttons */
+      .leaflet-control-zoom > a {
+        filter: invert(1);
+      }
+      /* popup tooltips */
+      .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+        background-color: #111112;
+        color: #ffffff;
+      }
+      /* Area, Sub-Area, Division layer & labels */
+      .asd-layer, .asd-label {
+        filter: brightness(0.6) saturate(0.7);
       }
     }
 
@@ -97,28 +130,30 @@
       <p style="font-size: 40px; text-align: center">You need to enable javascript in your browser to use this web site.</p>
     </div>
   </noscript>
-  
+
   <!-- Leaflet.js script from CDN -->
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="anonymous"></script>
   <!-- Proj4.js from CDN, see https://github.com/proj4js/proj4js -->
   <script src="https://unpkg.com/proj4@2.7.5/dist/proj4-src.js" integrity="sha512-v9fKB/Tdskpid8kkFcCde7j8nyykKK9fBAZIU8pzTuMIOMJYccsutTxn8qUS/p/32FG/ynVrsbj+dsaya/jNEg==" crossorigin="anonymous"></script>
   <!-- Proj4Leaflet from CDN, see https://github.com/kartena/Proj4Leaflet -->
   <script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js" integrity="sha512-NA+0vegFw6AiYXT23H+hk43LxqwpJkkviK/vHTESeu+jUpvWssfQRWWqSR07aUhGSKtfpkdlE8YFrVaHsnb3jw==" crossorigin="anonymous"></script>
-
   <!-- PouchDB for in-browser caching from CDN, see https://pouchdb.com/ -->
   <script src="https://unpkg.com/pouchdb@^5.2.0/dist/pouchdb.js" integrity="sha512-V3KeJQJGLxtQTBpiZCjNNxVMoTgT1L8nd6/HZ9U7LrVM2CLKZttqZhyMibZetm7KGr8WO6iYmsdpdwPEltE2yA==" crossorigin="anonymous"></script>
   <!-- Leaflet.TileLayer.PouchDBCached from CDN, see https://github.com/MazeMap/Leaflet.TileLayer.PouchDBCached -->
   <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js" integrity="sha512-1nmvAgS3BuRHdL/jYmw+Y55aagEd0xllTA9WTAAqkObDcemLTmqB0jJfLhhdN4drvX7WY671Evj+11i2U+DKTA==" crossorigin="anonymous"></script>
-
   <!-- Leaflet plugin for permalink/URL hash, served locally, originally from https://github.com/MarcChasse/leaflet.Permalink -->
   <script src="./scripts/leaflet.permalink.min.js" integrity="sha512-p64i/liUcr00za2WMn8dnb6fzu8Ok86e65VxvYy2dbNgoIAU86yL9Dk/lsuIU0lnDsAWoGVdQ0FbSG1zI2X9yg=="></script>
+  <!-- convert shapefiles to GeoJSON from CDN, see https://github.com/calvinmetcalf/shapefile-js -->
+  <script src="https://unpkg.com/shpjs@4.0.2/dist/shp.js" integrity="sha512-kFyvD9oByjTbgOdnltUfNRlZXEV+FX4G43Rnbg6N2W2cmwLF4t0mOBb48akhxHFPYKiTKu1zNNe2an9eq7gGFA==" crossorigin="anonymous"></script>
+  <!-- remove 1-pixel gaps between tiles, workaround from https://github.com/Leaflet/Leaflet.TileLayer.NoGap -->
+  <script src="./scripts/L.TileLayer.NoGap.js" integrity="sha512-H9puGEjuauSlaI+x0002JSA2dcapDl57cn//Dkx8ceszab9QDIEe/NLeTSdwfZw8wGoQ9m0YK1TCGLH2Ojyi+A=="></script>
 
   <!-- scripts for page -->
   <script type="text/javascript">
     'use strict';
 
-    // for linting, globally define "L" (Leaflet)
-    /* global L */
+    // for linting, globally define "L" (Leaflet), "shp" (shapefile-js)
+    /* global L, shp */
 
     // calculate user's pixel ratio, better for maps on high pixel-density screens
     // default to 1 if not available
@@ -138,7 +173,7 @@
     // generate zoom resolutions array
     // will end up with array starting at around 48000 (fully zoomed out) to ≈188
     // needed for GBIF tiles - changing generated resolutions will impact tiles!
-    const resolutions = Array(max_zoom + 1).fill().map((_, i) => ( extent / tile_size / Math.pow(2, i-1) ));
+    const resolutions = Array(max_zoom + 1).fill().map((_, i) => ( extent / tile_size / Math.pow(2, i - 1) ));
 
     // create EPSG3031 coordinate reference system (CRS) for Leaflet
     // requires proj4 & proj4leaflet
@@ -208,7 +243,7 @@
 
     // overall attribution and reference for CRS (will be merged with layer attributions)
     // by default, bottom-right corner
-    map.attributionControl.addAttribution('&copy; <a href="http://ccamlr.org" rel="noopener noreferrer">CCAMLR</a> | Projection: <a href="https://spatialreference.org/ref/epsg/wgs-84-antarctic-polar-stereographic/" rel="noopener noreferrer">EPSG:3031</a> | <a href="https://github.com/thomas-ccamlr/leaflet-gis-test/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>');
+    map.attributionControl.addAttribution('&copy; <a href="https://data.bas.ac.uk" rel="noopener noreferrer">SCAR Antarctic Digital Database</a>, &copy; <a href="http://ccamlr.org" rel="noopener noreferrer">CCAMLR</a> | Projection: <a href="https://spatialreference.org/ref/epsg/wgs-84-antarctic-polar-stereographic/" rel="noopener noreferrer">EPSG:3031</a> | <a href="https://github.com/thomas-ccamlr/leaflet-gis-test/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>');
 
     // if on mobile, remove zoom control
     // not needed on mobile due to pinch zooming, double-tap zooming
@@ -233,12 +268,14 @@
         img.src = './logo.png?v=1';
         // hard-code size to 125 pixels; will retain same size when map is zoomed
         img.style.width = '125px';
-        img.style.height = '125px';
+        img.style.height = '72px';
         // make image partially transparent
         img.style.opacity = '0.7';
         // add accessibility hints (as the image is decorative, empty description)
         img.alt = '';
         img.role = 'presentation';
+        // CSS class
+        img.className = 'logo-watermark';
         // return image element
         return img;
       }
@@ -253,13 +290,13 @@
       // width and height of 10 pixels
       // circle centered in middle of viewport; radius equal to half of viewport
       html: '<svg width="10" height="10" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="50%" cy="50%" r="50%" fill="#FF8A6D"/></svg>',
-      // CSS class so can style, hide/show
-      className: 'vme-icon',
       // 10 by 10 pixel shape
       // note this is not impacted by zooming map
       iconSize: [10, 10],
       // GeoJSON coordinate for point in center of shape (pixels)
-      iconAnchor: [5, 5]
+      iconAnchor: [5, 5],
+      // CSS class so can style, hide/show
+      className: 'vme-icon',
     });
 
     // function called once for each GeoJSON "feature"
@@ -301,26 +338,26 @@
       // return JSON object
       return json;
     };
-    
+
     // load GeoJSON file with "features" collection, where each "feature" is a point
     // see https://geojson.org/ for full spec
     // for example:
     // {
     //   "type": "FeatureCollection",
     //   "features": [
-    //     { 
-    //       "type": "Feature", 
-    //       "geometry": { "type": "Point", "coordinates": [-90, 0] }, 
-    //       "properties": { 
-    //         "name": "...", 
-    //         "description": "..." 
+    //     {
+    //       "type": "Feature",
+    //       "geometry": { "type": "Point", "coordinates": [-90, 0] },
+    //       "properties": {
+    //         "name": "...",
+    //         "description": "..."
     //       }
     //     },
     //     ...
     loadGeoJSON('./layers/ccamlr-vmes.json').then(data => {
       // add as a GeoJSON layer, call custom function to style points as custom
       // icons, and add popup tooltips
-      L.geoJSON(data, { 
+      L.geoJSON(data, {
         // function to style GeoJSON point as custom icon
         // called for each feature
         pointToLayer: (feature, latlng) => {
@@ -328,7 +365,170 @@
           return L.marker(latlng, { icon: svgVmeIcon });
         },
         // add tooltip for each feature
-        onEachFeature: addPopupFromFeatureProperties 
+        onEachFeature: addPopupFromFeatureProperties
+      }).addTo(map);
+    });
+
+    // load shapefiles (collection of files with same name but different extensions)
+    // then add GeoJSON layers to map using shapefile-js from https://github.com/calvinmetcalf/shapefile-js
+    // first, coastline layer downloaded from https://data.bas.ac.uk/full-record.php?id=GB/NERC/BAS/PDC/01635
+    // leave off extension, shapefile-js will load shp, prj, dbf and cpg files
+    // with same name from same directory
+    // (note the coastline layer may display after other layers as coastline
+    // shapefile is largish at around 11MB, zipped to 2.7MB)
+    // need full URL, not relative, so use somewhat hacky way to get domain from
+    // document.baseURI
+    // load from ZIP file, reduces network load by 80%
+    shp(new URL(document.baseURI).origin + '/layers/add_coastline_medium_res_line_v7_5/add_coastline_medium_res_line_v7_5.shp.zip')
+      .then((data) => {
+        // add GeoJSON layer, set style
+        L.geoJson(data, {
+          style: () => ({
+            // line color
+            color: '#5EBCFF',
+            weight: 1.2,
+            opacity: 0.8,
+            // no fill
+            fillColor: 'transparent'
+          }),
+          // CSS class for additional styling and hiding/showing
+          className: 'coastline-layer',
+          // don't update this layer while zooming - wait till zoom ends
+          updateWhenZooming: false,
+          updateWhenIdle: true,
+          // not interactive
+          interactive: false
+        }).addTo(map);
+      });
+
+    // load graticule shapefiles part 1: longitude lines every 30 degrees
+    // shape files from Quantarctica
+    shp(new URL(document.baseURI).origin + '/layers/quantarctica-graticules-30dg-longitude/30dg_longitude')
+      .then((data) => {
+        L.geoJson(data, {
+          style: () => ({
+            // light lines
+            color: '#acacad',
+            weight: 0.8,
+            opacity: 0.5,
+            // no fill
+            fillColor: 'transparent'
+          }),
+          // CSS class for styling and hiding/showing
+          className: 'lat-long-lines-layer',
+          // not interactive
+          interactive: false
+        }).addTo(map);
+      });
+    // load graticule shapefiles part 2: latitude lines (projected as circles)
+    // in 10 degree increments, only to 40° south
+    // shape files from Quantarctica
+    shp(new URL(document.baseURI).origin + '/layers/quantarctica-graticules-10dg-latitude/10dg_latitude')
+      .then((data) => {
+        L.geoJson(data, {
+          style: () => ({
+            color: '#acacad',
+            weight: 0.8,
+            opacity: 0.5,
+            fillColor: 'transparent'
+          }),
+          className: 'lat-long-lines-layer',
+          interactive: false
+        }).addTo(map);
+      });
+
+    // CCAMLR Statistical Areas AKA ASD (Area, Sub-Area, Division)
+    // sourced from https://data.ccamlr.org/dataset/statistical-areas-subareas-and-divisions/resource/0a8ce1db-6a0e-4643-89cb-1e38e36b8ff7
+    loadGeoJSON('./layers/ccamlr-asd-simplified.json').then(data => {
+      const asd_layer = L.geoJson(data, {
+        style: () => ({
+          color: '#0077A4',
+          // thick lines
+          weight: 2,
+          opacity: 0.9,
+          // dashed lines
+          // adapted from https://leafletjs.com/examples/choropleth/
+          dashArray: '3',
+          // very light fill
+          fillOpacity: 0.1
+        }),
+        // highlight when hovering each feature
+        onEachFeature: (feature, layer) => {
+          // create visible label for each feature
+          if (feature.properties && feature.properties.Label) {
+            // create label location position, some need to be specifically
+            // placed as "center" may be over land or overlap another area
+            // adapted from https://github.com/w8r/Leaflet.Tooltip
+            // by default, position should be center of feature
+            let label_location = layer.getBounds().getCenter();
+            // check for specific areas
+            switch (feature.properties.Label) {
+              case '48.1':
+                label_location = new L.LatLng(
+                  layer.getBounds().getNorth(),
+                  layer.getBounds().getCenter().lng
+                );
+                break;
+              case '58.4.2':
+                label_location = { lat: -64.377, lng: 56.224 };
+                break;
+              case '88.1':
+                label_location = { lat: -69.287, lng: 172.695 };
+                break;
+            }
+            // set label for each shape from "Label" property
+            // from https://stackoverflow.com/a/32584609
+            // set label location to position set above
+            L.marker(label_location, {
+              icon: L.divIcon({
+                html: feature.properties.Label,
+                iconSize: [50, 20],
+                className: 'asd-label'
+              }),
+              // label does not generate mouse events
+              // so will not interfere with hover
+              interactive: false
+            }).addTo(map);
+          }
+          // set events for hover, leave and click to highlight feature (ASD)
+          // adapted from https://leafletjs.com/examples/choropleth/
+          layer.on({
+            // when hovering over an ASD feature, set new style
+            mouseover: (e) => {
+              // reference to this feature
+              const _feature = e.target;
+              // set more prominent style
+              _feature.setStyle({
+                weight: 5,
+                // make line solid (not dashed)
+                dashArray: '',
+                fillOpacity: 0.2
+              });
+            },
+            // when leaving an ASD feature, reset style
+            mouseout: (e) => {
+              // need to pass a reference to the GeoJSON layer to reset style
+              // of feature (ASD) on leave
+              asd_layer.resetStyle(e.target);
+            },
+            // on click, show popup
+            click: (e) => {
+              // remove any old popups that might be attached
+              if (layer._popup !== undefined) {
+                layer.unbindPopup();
+              }
+              // get properties for popup "Name" and "Description"
+              const tooltip = '<strong>' + feature.properties.Name + '</strong><br>' +
+                feature.properties.Description;
+
+              // display popup where the user clicked
+              // don't show close button (interferes with permalink/URL hash)
+              L.popup({ closeButton: false }).setLatLng(e.latlng).setContent(tooltip).openOn(map);
+            }
+          });
+        },
+        // set CSS class for styling or hiding/showing
+        className: 'asd-layer'
       }).addTo(map);
     });
   </script>
