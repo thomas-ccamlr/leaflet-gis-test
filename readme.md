@@ -2,7 +2,7 @@
 
 HTML and supporting CSS, javascript and GIS files to create an interactive Antarctic map using Leaflet <https://leafletjs.com/>.
 
-Map tiles from Global Biodiversity Information Facility (GBIF) <https://tile.gbif-uat.org/ui/>.
+Map tiles from Global Biodiversity Information Facility (GBIF) <https://tile.gbif.org/ui/>.
 
 Built with a ton of high quality, open-source components:
 
