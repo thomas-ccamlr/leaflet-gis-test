@@ -72,7 +72,7 @@
     }
     /* Area, Sub-Area and Division labels */
     .asd-label {
-      color: #0077A4;
+      color: #5856D6;
     }
 
     /* at very narrow widths (under 660px), move the scale above acknowledgements */
@@ -103,7 +103,15 @@
       }
       /* Area, Sub-Area, Division layer & labels */
       .asd-layer, .asd-label {
-        filter: brightness(0.6) saturate(0.7);
+        filter: saturate(0.7) brightness(1.1);
+      }
+      /* make ASD label stand out */
+      .asd-label {
+        filter: brightness(1.5);
+      }
+      /* coastline layer */
+      .coastline-layer {
+        filter: saturate(0.7) brightness(0.6);
       }
     }
 
@@ -442,7 +450,7 @@
     loadGeoJSON('./layers/ccamlr-asd-simplified.json').then(data => {
       const asd_layer = L.geoJson(data, {
         style: () => ({
-          color: '#0077A4',
+          color: '#5856D6',
           // thick lines
           weight: 2,
           opacity: 0.9,
