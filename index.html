@@ -346,9 +346,9 @@
         </label>
         <a href="./layers/ccamlr-vmes.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (17KB)</a>
       </div>
-      <div class="c-checkbox c-checkbox--svg" style="margin-top: 20px">
+      <div id="show-mouse-position" class="c-checkbox c-checkbox--svg" style="margin-top: 20px">
         <!-- show/hide mouse position control
-             note has no effect on mobile - consider hiding option -->
+             disabled in javascript on mobile -->
         <input type="checkbox" id="check-mouse-position" onclick="toggleCSSLayer(this, 'leaflet-control-mouseposition');" class="sr-only" >
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-mouse-position">
           <svg viewBox="0 0 100 100">
@@ -481,8 +481,14 @@
     }).addTo(map);
 
     // mouse position control (made visible by user in sidebar)
+    // only if not on mobile (mobile has touch, mouse position not needed)
     // from https://github.com/ardhi/Leaflet.MousePosition
-    L.control.mousePosition({  position: 'topright', emptyString: '' }).addTo(map);
+    if (!L.Browser.mobile) {
+      L.control.mousePosition({  position: 'topright', emptyString: '' }).addTo(map);
+    } else {
+      // mobile device - hide checkbox
+      document.getElementById('show-mouse-position').style.display = 'none';
+    }
 
     // initialise permalink/URL hash
     // when page is initially loaded, no impact; when user scrolls or zooms, URL
