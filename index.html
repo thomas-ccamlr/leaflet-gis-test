@@ -20,6 +20,9 @@
 
   <!-- Leaflet.js style from CDN -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="anonymous">
+  <!-- Leaflet EasyButton styles from https://github.com/CliffCloud/Leaflet.EasyButton -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.css" integrity="sha512-aiVWmB2G8oV+XfHo1CR6hEAxzCl48Lrl3UBzQ6P+BEMkT8qY1tGecdQx6x/X8i9cCVrwQU9ipsOsZlNkRh9n7w==" crossorigin="anonymous">
+
   <!-- basic CSS reset, adapted from https://piccalil.li/blog/a-modern-css-reset/ -->
   <style>
     /* reset: box sizing rules */
@@ -74,16 +77,64 @@
     .asd-label {
       color: #5856D6;
     }
+    /* move scale control slightly up so as not to overlay acknowledgements */
+    .leaflet-control-scale {
+      margin-bottom: 24px !important;
+    }
+    /* when scaling watermark logo (for narrower screens, see media queries), transition over 0.3 seconds */
+    .logo-watermark {
+      object-fit: scale-down;
+      transition: all 0.3s;
+    }
+    /* full-screen sidebar */
+    .sidebar {
+      width: 100%;
+      max-width: 100%;
+      background: #DEF2FF;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      opacity: 0.92;
+      /* set above other elements */
+      z-index: 9999;
+      /* animate sliding when opening and closing */
+      transition: all 0.7s cubic-bezier(0, 1, 0.5, 1);
+      overflow-x: hidden;
+    }
+    /* when sidebar is closed, move off-screen */
+    .sidebar.closed {
+      left: -9999px;
+    }
 
-    /* at very narrow widths (under 660px), move the scale above acknowledgements */
-    @media (max-width: 660px) {
+    /* on non-widescreens, move the scale above 2-line acknowledgements */
+    @media (max-width: 1080px) {
       .leaflet-control-scale {
-        margin-bottom: 24px !important;
+        margin-bottom: 40px !important;
+      }
+      /* set max height of attribution control */
+      .leaflet-control-attribution {
+        height: 33.61px;
+        max-height: 33.61px;
+        overflow: hidden;
+      }
+    }
+    /* on narrower screens, scale down watermark */
+    @media (max-width: 750px) {
+      .logo-watermark {
+        width: 50% !important;
+        max-width: 125px;
+        margin-top: 0 !important;
       }
     }
 
-    /* basic dark mode, adapted from https://gist.github.com/BrendonKoz/b1df234fe3ee388b402cd8e98f7eedbd */
+    /* basic dark mode, parts adapted from https://gist.github.com/BrendonKoz/b1df234fe3ee388b402cd8e98f7eedbd */
     @media (prefers-color-scheme: dark) {      
+      /* body content */
+      body {
+        background-color: #4F4F4F;
+        color: #ffffff;
+      }
       /* map background (overflow) */
       #map {
         background-color: #111112;
@@ -94,6 +145,10 @@
       }
       /* zoom buttons */
       .leaflet-control-zoom > a {
+        filter: invert(1);
+      }
+      /* Easy Buttons */
+      .easy-button-container.leaflet-control > button {
         filter: invert(1);
       }
       /* popup tooltips */
@@ -113,6 +168,11 @@
       .coastline-layer {
         filter: saturate(0.7) brightness(0.6);
       }
+      /* sidebar */
+      .sidebar {
+        background-color: #111112;
+        color: #ffffff;
+      }
     }
 
     /* save space by removing Leaflet icon SVG */
@@ -120,6 +180,7 @@
       display: none !important;
       visibility: hidden;
     }
+
   </style>
   <script type="text/javascript">
     'use strict';
@@ -129,16 +190,47 @@
   </script>
 </head>
 <body>
+  <!-- sidebar, start closed -->
+  <nav id="sidebar" class="sidebar closed" role="navigation" aria-hidden="true">
+    <div style="padding: 20px">
+      <h1>CCAMLR interactive web map demo</h1>
+      <a href="javascript:hideSidebar()">Return to the map</a>
+      <p>Select one or more layers to view on the map:</p>
+      <!-- layer visibility controls -->
+      <ul style="list-style-type: none; padding: 0; margin: 0">
+        <li title="Hide or show latitude and longitude lines">
+          <!-- when checkbox is changed, toggle the CSS layer, passing checkbox and CSS class name -->
+          <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked">
+          <label for="check-lat-long-lines-layer">Latitude & longitude</label>
+        </li>
+        <li title="Hide or show Antarctic coastline">
+          <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked">
+          <label for="check-coastline-layer">Antarctic coastline</label>
+        </li>
+        <li title="Hide or show CCAMLR Statistical Areas">
+          <!-- hide both the layer and labels (two different CSS classes) -->
+          <input type="checkbox" id="check-asd" onclick="toggleCSSLayer(this, 'asd-layer') & toggleCSSLayer(this, 'asd-label');" checked="checked">
+          <label for="check-asd">CCAMLR Statistical Areas</label>
+        </li>
+        <li title="Hide or show Vulnerable Marine Environments (VME)">
+          <!-- dynamically load the VME layer, passing the GeoJSON file name -->
+          <input type="checkbox" id="check-vme-icon" onclick="toggleJSONLayer(this,'ccamlr-vmes');">
+          <label for="check-vme-icon">Vulnerable Marine Environments (VME)</label>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <!-- map DIV -->
   <div id="map" role="main" aria-label="Map, pan with arrow keys, zoom with plus and minus keys"></div>
 
-  <!-- show message advising the site does not work without javascript -->
+  <!-- message advising the site does not work without javascript -->
   <noscript>
     <div style="height: 220px; display: flex; align-items: center; justify-content: center; margin-left: 40px; margin-right: 40px">
       <p style="font-size: 40px; text-align: center">You need to enable javascript in your browser to use this web site.</p>
     </div>
   </noscript>
-
+  
   <!-- Leaflet.js script from CDN -->
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="anonymous"></script>
   <!-- Proj4.js from CDN, see https://github.com/proj4js/proj4js -->
@@ -153,8 +245,10 @@
   <script src="./scripts/leaflet.permalink.min.js" integrity="sha512-p64i/liUcr00za2WMn8dnb6fzu8Ok86e65VxvYy2dbNgoIAU86yL9Dk/lsuIU0lnDsAWoGVdQ0FbSG1zI2X9yg=="></script>
   <!-- convert shapefiles to GeoJSON from CDN, see https://github.com/calvinmetcalf/shapefile-js -->
   <script src="https://unpkg.com/shpjs@4.0.2/dist/shp.js" integrity="sha512-kFyvD9oByjTbgOdnltUfNRlZXEV+FX4G43Rnbg6N2W2cmwLF4t0mOBb48akhxHFPYKiTKu1zNNe2an9eq7gGFA==" crossorigin="anonymous"></script>
-  <!-- remove 1-pixel gaps between tiles, workaround from https://github.com/Leaflet/Leaflet.TileLayer.NoGap -->
+  <!-- local copy of script to remove 1-pixel gaps between tiles, workaround from https://github.com/Leaflet/Leaflet.TileLayer.NoGap -->
   <script src="./scripts/L.TileLayer.NoGap.js" integrity="sha512-H9puGEjuauSlaI+x0002JSA2dcapDl57cn//Dkx8ceszab9QDIEe/NLeTSdwfZw8wGoQ9m0YK1TCGLH2Ojyi+A=="></script>
+  <!-- Leaflet EasyButton from CDN, see https://github.com/CliffCloud/Leaflet.EasyButton -->
+  <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js" integrity="sha512-nMxgrgYu7vo/LNe5NFHZOIkwbodaU13UdYiDoDCuo3P2sryEyffrk1R3c2tFGbZ83AqaMbO19yhKnVgHztuqAw==" crossorigin="anonymous"></script>
 
   <!-- scripts for page -->
   <script type="text/javascript">
@@ -253,6 +347,39 @@
     // by default, bottom-right corner
     map.attributionControl.addAttribution('&copy; <a href="https://data.bas.ac.uk" rel="noopener noreferrer">SCAR Antarctic Digital Database</a>, &copy; <a href="https://www.npolar.no/quantarctica/" rel="noopener noreferrer">Quantarctica and the Norwegian Polar Institute</a>, &copy; <a href="http://ccamlr.org" rel="noopener noreferrer">CCAMLR</a> | Projection: <a href="https://spatialreference.org/ref/epsg/wgs-84-antarctic-polar-stereographic/" rel="noopener noreferrer">EPSG:3031</a> | <a href="https://github.com/thomas-ccamlr/leaflet-gis-test/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>');
 
+    // menu button to display sidebar when clicked
+    L.easyButton(`<div style="padding-top: 3px"><svg viewBox="0 0 100 80" width="18" height="18">
+        <rect width="100" height="20"></rect>
+        <rect y="30" width="100" height="20"></rect>
+        <rect y="60" width="100" height="20"></rect>
+      </svg></div>`, () => {
+      // show the sidebar
+      showSidebar();
+    }, 'Menu').addTo(map);
+
+    // home/reset view button
+    // home icon from https://www.svgrepo.com/svg/14443/home
+    L.easyButton(`<div style="padding-top: 2px"><svg viewBox="0 0 330.242 330.242" width="18" height="18">
+        <path d="M324.442,129.811l-41.321-33.677V42.275c0-6.065-4.935-11-11-11h-26c-6.065,0-11,4.935-11,11v14.737l-55.213-44.999
+          c-3.994-3.254-9.258-5.047-14.822-5.047c-5.542,0-10.781,1.782-14.753,5.019L5.8,129.81c-6.567,5.351-6.173,10.012-5.354,12.314
+          c0.817,2.297,3.448,6.151,11.884,6.151h19.791v154.947c0,11.058,8.972,20.053,20,20.053h62.5c10.935,0,19.5-8.809,19.5-20.053
+          v-63.541c0-5.446,5.005-10.405,10.5-10.405h42c5.238,0,9.5,4.668,9.5,10.405v63.541c0,10.87,9.388,20.053,20.5,20.053h61.5
+          c11.028,0,20-8.996,20-20.053V148.275h19.791c8.436,0,11.066-3.854,11.884-6.151C330.615,139.822,331.009,135.161,324.442,129.811z"
+          />
+      </svg></div>`, () => {
+      // reset to default view and zoom (different if on mobile)
+      map.setView([-90, 0], pixel_ratio > 1 ? 2 : 3);
+    }, 'Reset view').addTo(map);
+
+    // GitHub repo button
+    // GitHub SVG icon from https://github.com/danklammer/bytesize-icons
+    L.easyButton(`<div style="padding-top: 3px"><svg viewBox="0 0 64 64" width="18" height="18">
+        <path stroke-width="0" fill="currentColor" d="M32 0 C14 0 0 14 0 32 0 53 19 62 22 62 24 62 24 61 24 60 L24 55 C17 57 14 53 13 50 13 50 13 49 11 47 10 46 6 44 10 44 13 44 15 48 15 48 18 52 22 51 24 50 24 48 26 46 26 46 18 45 12 42 12 31 12 27 13 24 15 22 15 22 13 18 15 13 15 13 20 13 24 17 27 15 37 15 40 17 44 13 49 13 49 13 51 20 49 22 49 22 51 24 52 27 52 31 52 42 45 45 38 46 39 47 40 49 40 52 L40 60 C40 61 40 62 42 62 45 62 64 53 64 32 64 14 50 0 32 0 Z" />
+      </svg></div>`, () => {
+      // open GitHub URL in new tab
+      window.open('https://github.com/thomas-ccamlr/leaflet-gis-test', '_blank').opener = null;
+    }, 'GitHub repo').addTo(map);
+
     // if on mobile, remove zoom control
     // not needed on mobile due to pinch zooming, double-tap zooming
     // adapted from https://gis.stackexchange.com/a/259718
@@ -261,6 +388,30 @@
       map.removeControl(map.zoomControl);
     }
 
+    // reference to sidebar
+    const sidebar = document.getElementById('sidebar');
+    // function to show sidebar
+    const showSidebar = () => {
+      sidebar.classList.toggle('closed');
+      sidebar.setAttribute('aria-hidden', 'false');
+    };
+    // function to hide sidebar
+    const hideSidebar = () => {
+      // if visible, hide
+      if (sidebar.getAttribute('aria-hidden') === 'false') {
+        sidebar.classList.toggle('closed');
+        sidebar.setAttribute('aria-hidden', 'true');
+      }
+      // set focus to the map
+      document.getElementById('map').focus();
+    };
+    // add an event listener, so that if the ESC is pressed, close the sidebar
+    document.addEventListener('keydown', (event) => {
+      if(event.key === 'Escape') {
+        hideSidebar();
+      }
+    });
+    
     // create scale control, see https://www.tutorialspoint.com/leafletjs/leafletjs_controls.htm
     // and add scale control to map
     // by default, bottom-left corner
@@ -327,6 +478,32 @@
         // create popup with no close button, "#close" interferes with permalink
         // plugin
         layer.bindPopup(tooltip, { closeButton: false });
+      }
+    };
+
+    // function to toggle visibility of CSS layers, given a passed CSS class
+    // loosely adapted from https://javascript.tutorialink.com/dynamically-loading-multiple-external-geojson-data-files-and-calling-multiple-layers-dynamically-using-leaflet/
+    // nested loops (not good) but also need to account for variety of browsers
+    // eslint-disable-next-line no-unused-vars
+    const toggleCSSLayer = (checkbox, className) => {
+      // get collection of elements with the passed CSS class
+      const elements = document.getElementsByClassName(className);
+      // did we get any elements?
+      if (elements && elements.length && elements.length > 0) {
+        // if the checkbox is checked, ensure layer with CSS class is visible
+        if (checkbox && checkbox.checked) {
+          // loop through elements
+          for (let i = 0; i < elements.length; i ++) {
+            // set display to "inline" (default for layers in map)
+            elements[i].style.display = 'inline';
+          }
+        } else {
+          // checkbox not checked
+          // loop through elements and set CSS to hidden
+          for (let i = 0; i < elements.length; i ++) {
+            elements[i].style.display = 'none';
+          }
+        }
       }
     };
 
@@ -539,6 +716,7 @@
         className: 'asd-layer'
       }).addTo(map);
     });
+
   </script>
 </body>
 </html>
