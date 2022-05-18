@@ -14,6 +14,9 @@ Built with a ton of high quality, open-source components:
 - Leaflet.TileLayer.PouchDBCached <https://github.com/MazeMap/Leaflet.TileLayer.PouchDBCached>
 - Leaflet.Permalink <https://github.com/MarcChasse/leaflet.Permalink>
 - Shapefile.js <https://github.com/calvinmetcalf/shapefile-js>
+- Leaflet.EasyButton <https://github.com/CliffCloud/Leaflet.EasyButton>
+- Leaflet.TileLayer.NoGap <https://github.com/Leaflet/Leaflet.TileLayer.NoGap>
+- Leaflet.MousePosition <https://github.com/ardhi/Leaflet.MousePosition>
 
 ## To develop locally
 

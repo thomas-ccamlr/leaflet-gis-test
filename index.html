@@ -77,10 +77,6 @@
     .asd-label {
       color: #5856D6;
     }
-    /* move scale control slightly up so as not to overlay acknowledgements */
-    .leaflet-control-scale {
-      margin-bottom: 24px !important;
-    }
     /* when scaling watermark logo (for narrower screens, see media queries), transition over 0.3 seconds */
     .logo-watermark {
       object-fit: scale-down;
@@ -95,18 +91,120 @@
       top: 0;
       left: 0;
       height: 100vh;
-      opacity: 0.92;
       /* set above other elements */
       z-index: 9999;
       /* animate sliding when opening and closing */
       transition: all 0.7s cubic-bezier(0, 1, 0.5, 1);
-      overflow-x: hidden;
     }
     /* when sidebar is closed, move off-screen */
     .sidebar.closed {
       left: -9999px;
     }
+    /* download link styling */
+    a.download-link {
+      color: #0089c7;
+      text-decoration: none;
+      border-bottom: 1px #a2dffb dotted;
+      transition: all 0.3s;
+    }
+    /* lighten download links slightly on hover */
+    a.download-link:focus, a.download-link:hover {
+      opacity: 0.8;
+      border-bottom: 1px #0089c7 solid;
+    }
 
+    /* style for mouse position (by default, bottom left) from https://github.com/ardhi/Leaflet.MousePosition
+       styled to closer match Leaflet 1.8 attribution */
+    .leaflet-container .leaflet-control-mouseposition {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 0 5px;
+      margin:0;
+      color: #333;
+      line-height: 1.4;
+      opacity: 0.8;
+      /* initially hidden */
+      display: none;
+    }
+
+    /* custom accessible SVG checkboxes from https://www.a11ymatters.com/pattern/checkbox/ */
+    /* screen reader only */
+    .sr-only {
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+      padding: 0;
+      border: 0;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+    }
+    .c-checkbox {
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .c-checkbox__label {
+      cursor: pointer;
+      display: inline-block;
+      user-select: none;
+    }
+    .c-checkbox__label:before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #c5c5c5;
+      margin-right: 8px;
+    }
+    .c-checkbox__label:hover {
+      color: #3863d9;
+    }
+    .c-checkbox input:focus:not(:focus-visible) {
+      outline: none;
+    }
+    .c-checkbox input:focus + .c-checkbox__label {
+      outline: dashed 2px lightgrey;
+      outline-offset: 3px;
+    }
+    .c-checkbox--svg input:checked + .c-checkbox__label--svg:before {
+      background: #3863d9;
+      border-color: #3863d9;
+    }
+    .c-checkbox--svg input:checked + .c-checkbox__label--svg .path {
+      stroke: #fff;
+      stroke-dashoffset: 0;
+    }
+    .c-checkbox__label--svg {
+      padding-left: 32px;
+      vertical-align: top;
+    }
+    .c-checkbox__label--svg:before {
+      position: absolute;
+      left: 0;
+      top: -1px;
+      width: 24px;
+      height: 24px;
+      transition: all 0.35s ease-out;
+    }
+    .c-checkbox__label--svg svg {
+      position: absolute;
+      left: 4px;
+      top: 3px;
+      width: 15px;
+      height: 15px;
+    }
+    .c-checkbox__label--svg .path {
+      stroke-dashoffset: 111.46px;
+      stroke-dasharray: 111.46px;
+      stroke: #3863d9;
+      transition: all 0.35s ease-out;
+    }
+
+    /* narrower than 1200px, move the scale control above 1-line acknowledgements */
+    @media (max-width: 1200px) {
+      .leaflet-control-scale {
+        margin-bottom: 24px !important;
+      }
+    }
     /* on non-widescreens, move the scale above 2-line acknowledgements */
     @media (max-width: 1080px) {
       .leaflet-control-scale {
@@ -129,7 +227,7 @@
     }
 
     /* basic dark mode, parts adapted from https://gist.github.com/BrendonKoz/b1df234fe3ee388b402cd8e98f7eedbd */
-    @media (prefers-color-scheme: dark) {      
+    @media (prefers-color-scheme: dark) {
       /* body content */
       body {
         background-color: #4F4F4F;
@@ -192,32 +290,73 @@
 <body>
   <!-- sidebar, start closed -->
   <nav id="sidebar" class="sidebar closed" role="navigation" aria-hidden="true">
-    <div style="padding: 20px">
+    <div style="padding: 20px; line-height: 1.6em">
       <h1>CCAMLR interactive web map demo</h1>
       <a href="javascript:hideSidebar()">Return to the map</a>
-      <p>Select one or more layers to view on the map:</p>
-      <!-- layer visibility controls -->
-      <ul style="list-style-type: none; padding: 0; margin: 0">
-        <li title="Hide or show latitude and longitude lines">
-          <!-- when checkbox is changed, toggle the CSS layer, passing checkbox and CSS class name -->
-          <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked">
-          <label for="check-lat-long-lines-layer">Latitude & longitude</label>
-        </li>
-        <li title="Hide or show Antarctic coastline">
-          <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked">
-          <label for="check-coastline-layer">Antarctic coastline</label>
-        </li>
-        <li title="Hide or show CCAMLR Statistical Areas">
-          <!-- hide both the layer and labels (two different CSS classes) -->
-          <input type="checkbox" id="check-asd" onclick="toggleCSSLayer(this, 'asd-layer') & toggleCSSLayer(this, 'asd-label');" checked="checked">
-          <label for="check-asd">CCAMLR Statistical Areas</label>
-        </li>
-        <li title="Hide or show Vulnerable Marine Environments (VME)">
-          <!-- dynamically load the VME layer, passing the GeoJSON file name -->
-          <input type="checkbox" id="check-vme-icon" onclick="toggleJSONLayer(this,'ccamlr-vmes');">
-          <label for="check-vme-icon">Vulnerable Marine Environments (VME)</label>
-        </li>
-      </ul>
+      <p style="margin-bottom: 4px">Select one or more layers to view on the map:</p>
+      <!-- layer visibility controls
+           accessible checkboxes from https://codepen.io/shadeed/pen/dybqdGP -->
+      <div class="c-checkbox c-checkbox--svg">
+        <!-- HTML checkbox will be hidden by CSS -->
+        <input type="checkbox" id="check-basemap-layer" onclick="toggleCSSLayer(this, 'basemap-layer');" checked="checked" class="sr-only" >
+        <!-- custom SVG checkbox displayed instead -->
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-basemap-layer" title="Hide or show oceans and landmass">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Oceans and landmass
+        </label>
+      </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked" class="sr-only" >
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-lat-long-lines-layer" title="Hide or show latitude and longitude lines">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Latitude & longitude
+        </label>
+      </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked" class="sr-only" >
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-coastline-layer" title="Hide or show Antarctic coastline">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Antarctic coastline
+        </label>
+      </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <!-- hide both the layer and labels (two different CSS classes) -->
+        <input type="checkbox" id="check-asd" onclick="toggleCSSLayer(this, 'asd-layer') & toggleCSSLayer(this, 'asd-label');" checked="checked" class="sr-only" >
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-asd" title="Hide or show CCAMLR Statistical Areas">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          CCAMLR Statistical Areas
+        </label>
+        <a href="./layers/ccamlr-asd-simplified.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (712KB)</a>
+      </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <input type="checkbox" id="check-vme-icon" onclick="toggleJSONLayer(this,'ccamlr-vmes');" class="sr-only" >
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-vme-icon" title="Hide or show Vulnerable Marine Environment (VME) events">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Vulnerable Marine Environment (VME) events
+        </label>
+        <a href="./layers/ccamlr-vmes.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (17KB)</a>
+      </div>
+      <div class="c-checkbox c-checkbox--svg" style="margin-top: 20px">
+        <!-- show/hide mouse position control
+             note has no effect on mobile - consider hiding option -->
+        <input type="checkbox" id="check-mouse-position" onclick="toggleCSSLayer(this, 'leaflet-control-mouseposition');" class="sr-only" >
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-mouse-position">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Mouse position
+        </label>
+      </div>
     </div>
   </nav>
 
@@ -230,7 +369,7 @@
       <p style="font-size: 40px; text-align: center">You need to enable javascript in your browser to use this web site.</p>
     </div>
   </noscript>
-  
+
   <!-- Leaflet.js script from CDN -->
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin="anonymous"></script>
   <!-- Proj4.js from CDN, see https://github.com/proj4js/proj4js -->
@@ -249,6 +388,8 @@
   <script src="./scripts/L.TileLayer.NoGap.js" integrity="sha512-H9puGEjuauSlaI+x0002JSA2dcapDl57cn//Dkx8ceszab9QDIEe/NLeTSdwfZw8wGoQ9m0YK1TCGLH2Ojyi+A=="></script>
   <!-- Leaflet EasyButton from CDN, see https://github.com/CliffCloud/Leaflet.EasyButton -->
   <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js" integrity="sha512-nMxgrgYu7vo/LNe5NFHZOIkwbodaU13UdYiDoDCuo3P2sryEyffrk1R3c2tFGbZ83AqaMbO19yhKnVgHztuqAw==" crossorigin="anonymous"></script>
+  <!-- local copy of mouse position from https://github.com/ardhi/Leaflet.MousePosition -->
+  <script src="./scripts/L.Control.MousePosition.js" integrity="sha512-Mbie6HGpBo+1KN7xX3KcDqUEI5yubvRg8MfxSdAZDwAwoKCSo0k9KUMXvcuqVAv/2EnvUUywf6siMwS4LIECZw=="></script>
 
   <!-- scripts for page -->
   <script type="text/javascript">
@@ -276,6 +417,9 @@
     // will end up with array starting at around 48000 (fully zoomed out) to ≈188
     // needed for GBIF tiles - changing generated resolutions will impact tiles!
     const resolutions = Array(max_zoom + 1).fill().map((_, i) => ( extent / tile_size / Math.pow(2, i - 1) ));
+
+    // dynamic collection of GeoJSON layers - initially empty
+    const dynamic_layers = {};
 
     // create EPSG3031 coordinate reference system (CRS) for Leaflet
     // requires proj4 & proj4leaflet
@@ -335,6 +479,10 @@
       // attribution
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer">OpenStreetMap</a> contributors, &copy; <a href="https://openmaptiles.org" rel="noopener noreferrer">OpenMapTiles</a>'
     }).addTo(map);
+
+    // mouse position control (made visible by user in sidebar)
+    // from https://github.com/ardhi/Leaflet.MousePosition
+    L.control.mousePosition({  position: 'topright', emptyString: '' }).addTo(map);
 
     // initialise permalink/URL hash
     // when page is initially loaded, no impact; when user scrolls or zooms, URL
@@ -411,7 +559,7 @@
         hideSidebar();
       }
     });
-    
+
     // create scale control, see https://www.tutorialspoint.com/leafletjs/leafletjs_controls.htm
     // and add scale control to map
     // by default, bottom-left corner
@@ -524,9 +672,9 @@
       return json;
     };
 
-    // load GeoJSON file with "features" collection, where each "feature" is a point
+    // load GeoJSON file with "features" collection for passed file name
     // see https://geojson.org/ for full spec
-    // for example:
+    // for example, points:
     // {
     //   "type": "FeatureCollection",
     //   "features": [
@@ -539,20 +687,53 @@
     //       }
     //     },
     //     ...
-    loadGeoJSON('./layers/ccamlr-vmes.json').then(data => {
-      // add as a GeoJSON layer, call custom function to style points as custom
-      // icons, and add popup tooltips
-      L.geoJSON(data, {
-        // function to style GeoJSON point as custom icon
-        // called for each feature
-        pointToLayer: (feature, latlng) => {
-          // return marker set to render custom icon
-          return L.marker(latlng, { icon: svgVmeIcon });
-        },
-        // add tooltip for each feature
-        onEachFeature: addPopupFromFeatureProperties
-      }).addTo(map);
-    });
+    // eslint-disable-next-line no-unused-vars
+    const toggleJSONLayer = async (checkbox, fileName) => {
+      // does the layer already exist in layers collection?
+      // if so, hide or show it, and leave
+      if (dynamic_layers[fileName]) {
+        // show or hide layer by adding/removing from map, no need to load JSON file
+        if (checkbox.checked) {
+          dynamic_layers[fileName].addTo(map);
+        } else {
+          map.removeLayer(dynamic_layers[fileName]);
+        }
+        return;
+      }
+      // if we get to here, load the file
+      // relative URLs OK
+      loadGeoJSON(`./layers/${fileName}.json`).then(data => {
+        // add as a GeoJSON layer, call custom function to style points as custom
+        // icons, and add popup tooltips
+        const new_geo_json_layer = L.geoJSON(data, {
+          // function to style GeoJSON point as custom icon
+          // called for each feature
+          pointToLayer: (feature, latlng) => {
+            // return marker set to render custom icon
+            // if "ccamlr-vmes" layer, render as VME icons
+            if (fileName === 'ccamlr-vmes') {
+              return L.marker(latlng, { icon: svgVmeIcon });
+            } else {
+              return L.marker(latlng);
+            }
+          },
+          // add tooltip for each feature
+          onEachFeature: addPopupFromFeatureProperties
+        });
+        // make the layer visible or not by adding it to the map
+        // from dynamic layers collection
+        if (checkbox.checked) {
+          // first time loading layer: add to dynamic layers collection, then
+          // add to map
+          dynamic_layers[fileName] = new_geo_json_layer;
+          dynamic_layers[fileName].addTo(map);
+        } else {
+          // checkbox not checked
+          // remove layer from map
+          map.removeLayer(dynamic_layers[fileName]);
+        }
+      });
+    };
 
     // load shapefiles (collection of files with same name but different extensions)
     // then add GeoJSON layers to map using shapefile-js from https://github.com/calvinmetcalf/shapefile-js
@@ -716,7 +897,6 @@
         className: 'asd-layer'
       }).addTo(map);
     });
-
   </script>
 </body>
 </html>
