@@ -41,3 +41,12 @@ To set up linting using ESLint and VS Code, do the following steps once:
 - install ESLint and plugins locally `npm install --save-dev eslint eslint-plugin-html eslint-plugin-prefer-arrow`
   - `package.json` and `package-lock.json` files and `node_modules` directory will be created (these do not need to be deployed, used for development only)
 - install VSCode ESLint extension, see <https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint>
+
+## References
+
+The following sites are useful references for Leaflet and were valuable in getting this demo working:
+
+- Leaflet Tips and Tricks by Malcolm Maclean <https://leanpub.com/leaflet-tips-and-tricks>
+- Dynamically Loading multiple External GeoJson data files and calling multiple layers dynamically using Leaflet <https://javascript.tutorialink.com/dynamically-loading-multiple-external-geojson-data-files-and-calling-multiple-layers-dynamically-using-leaflet/>
+- Quantarctica <https://www.npolar.no/quantarctica/>
+- Arctic Web Map by ArcticConnect <http://webmap.arcticconnect.ca/>
