@@ -84,21 +84,24 @@
     }
     /* full-screen sidebar */
     .sidebar {
-      width: 100%;
-      max-width: 100%;
-      background: #DEF2FF;
+      width: 100vw;
+      max-width: 100vw;
+      background: #fcfcfd;
       position: absolute;
       top: 0;
       left: 0;
-      height: 100vh;
+      min-height: 100vh;
+      opacity: 1;
+      overflow-x: hidden;
       /* set above other elements */
       z-index: 9999;
       /* animate sliding when opening and closing */
-      transition: all 0.7s cubic-bezier(0, 1, 0.5, 1);
+      transition: left 0.7s ease, opacity 0.5s ease;
     }
-    /* when sidebar is closed, move off-screen */
+    /* when sidebar is closed, move off-screen, reduce opacity */
     .sidebar.closed {
-      left: -9999px;
+      left: -100vw;
+      opacity: 0.6;
     }
     /* download link styling */
     a.download-link {
@@ -292,7 +295,7 @@
   <nav id="sidebar" class="sidebar closed" role="navigation" aria-hidden="true">
     <div style="padding: 20px; line-height: 1.6em">
       <h1>CCAMLR interactive web map demo</h1>
-      <a href="javascript:hideSidebar()">Return to the map</a>
+      <a id="return-to-map-link" href="javascript:hideSidebar()">Return to the map</a>
       <p style="margin-bottom: 4px">Select one or more layers to view on the map:</p>
       <!-- layer visibility controls
            accessible checkboxes from https://codepen.io/shadeed/pen/dybqdGP -->
@@ -568,6 +571,10 @@
     const showSidebar = () => {
       sidebar.classList.toggle('closed');
       sidebar.setAttribute('aria-hidden', 'false');
+      // set focus to first control after slight delay
+      setTimeout(() => {
+        document.getElementById('return-to-map-link').focus();
+      }, 100);
     };
     // function to hide sidebar
     const hideSidebar = () => {
