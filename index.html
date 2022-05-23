@@ -77,6 +77,15 @@
     .asd-label {
       color: #5856D6;
     }
+    /* feature name label */
+    .feature-name {
+      color: #99999a;
+      font-style: italic;
+      font-size: 10px;
+      /* disable interactivity */
+      pointer-events: none !important;
+      user-select: none;
+    }
     /* when scaling watermark logo (for narrower screens, see media queries), transition over 0.3 seconds */
     .logo-watermark {
       object-fit: scale-down;
@@ -301,7 +310,7 @@
            accessible checkboxes from https://codepen.io/shadeed/pen/dybqdGP -->
       <div class="c-checkbox c-checkbox--svg">
         <!-- HTML checkbox will be hidden by CSS -->
-        <input type="checkbox" id="check-basemap-layer" onclick="toggleCSSLayer(this, 'basemap-layer');" checked="checked" class="sr-only" >
+        <input type="checkbox" id="check-basemap-layer" onclick="toggleCSSLayer(this, 'basemap-layer');" checked="checked" class="sr-only">
         <!-- custom SVG checkbox displayed instead -->
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-basemap-layer" title="Hide or show oceans and landmass">
           <svg viewBox="0 0 100 100">
@@ -310,8 +319,18 @@
           Oceans and landmass
         </label>
       </div>
+      <!-- selected major feature names from GeoNames Gazetteer http://www.geonames.org -->
       <div class="c-checkbox c-checkbox--svg">
-        <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked" class="sr-only" >
+        <input type="checkbox" id="check-feature-names" onclick="toggleJSONLayer(this,'geonames-selected-feature-names');" class="sr-only">
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-feature-names" title="Hide or show feature names">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          Feature names
+        </label>
+      </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-lat-long-lines-layer" title="Hide or show latitude and longitude lines">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -320,7 +339,7 @@
         </label>
       </div>
       <div class="c-checkbox c-checkbox--svg">
-        <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked" class="sr-only" >
+        <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-coastline-layer" title="Hide or show Antarctic coastline">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -330,7 +349,7 @@
       </div>
       <div class="c-checkbox c-checkbox--svg">
         <!-- hide both the layer and labels (two different CSS classes) -->
-        <input type="checkbox" id="check-asd" onclick="toggleCSSLayer(this, 'asd-layer') & toggleCSSLayer(this, 'asd-label');" checked="checked" class="sr-only" >
+        <input type="checkbox" id="check-asd" onclick="toggleCSSLayer(this, 'asd-layer') & toggleCSSLayer(this, 'asd-label');" checked="checked" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-asd" title="Hide or show CCAMLR Statistical Areas">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -340,7 +359,7 @@
         <a href="./layers/ccamlr-asd-simplified.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (712KB)</a>
       </div>
       <div class="c-checkbox c-checkbox--svg">
-        <input type="checkbox" id="check-vme-icon" onclick="toggleJSONLayer(this,'ccamlr-vmes');" class="sr-only" >
+        <input type="checkbox" id="check-vme-icon" onclick="toggleJSONLayer(this,'ccamlr-vmes');" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-vme-icon" title="Hide or show Vulnerable Marine Environment (VME) events">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -352,7 +371,7 @@
       <div id="show-mouse-position" class="c-checkbox c-checkbox--svg" style="margin-top: 20px">
         <!-- show/hide mouse position control
              disabled in javascript on mobile -->
-        <input type="checkbox" id="check-mouse-position" onclick="toggleCSSLayer(this, 'leaflet-control-mouseposition');" class="sr-only" >
+        <input type="checkbox" id="check-mouse-position" onclick="toggleCSSLayer(this, 'leaflet-control-mouseposition');" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-mouse-position">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -746,12 +765,16 @@
             // if "ccamlr-vmes" layer, render as VME icons
             if (fileName === 'ccamlr-vmes') {
               return L.marker(latlng, { icon: svgVmeIcon });
+            } else if (fileName === 'geonames-selected-feature-names') {
+              return L.marker(latlng, { icon: new L.DivIcon({ className: 'feature-name', html: feature.properties.name }) });
             } else {
               return L.marker(latlng);
             }
           },
-          // add tooltip for each feature
-          onEachFeature: addPopupFromFeatureProperties
+          // add tooltip for each feature, unless feature name
+          onEachFeature: fileName === 'geonames-selected-feature-names' ? () => { return; } : addPopupFromFeatureProperties,
+          // don't allow clicks on feature names layer
+          interactive: fileName !== 'geonames-selected-feature-names'
         });
         // make the layer visible or not by adding it to the map
         // from dynamic layers collection
