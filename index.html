@@ -77,6 +77,13 @@
     .asd-label {
       color: #5856D6;
     }
+    /* latitude/longitude lines labels */
+    .lat-long-lines-label {
+      color: #acacad;
+      opacity: 0.7;
+      /* center horizontally */
+      text-align: center;
+    }
     /* feature name label */
     .feature-name {
       color: #99999a;
@@ -123,6 +130,14 @@
     a.download-link:focus, a.download-link:hover {
       opacity: 0.8;
       border-bottom: 1px #0089c7 solid;
+    }
+    /* hide elements with class "z4-and-above" if map zoom level is less than 4 */
+    #map.z0 .z4-and-above, #map.z1 .z4-and-above, #map.z2 .z4-and-above, #map.z3 .z4-and-above {
+      display: none;
+    }
+    /* hide elements with class "z2-and-above" if map zoom level is less than 2 */
+    #map.z0 .z2-and-above, #map.z1 .z2-and-above {
+      display: none;
     }
 
     /* style for mouse position (by default, bottom left) from https://github.com/ardhi/Leaflet.MousePosition
@@ -330,7 +345,8 @@
         </label>
       </div>
       <div class="c-checkbox c-checkbox--svg">
-        <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer');" checked="checked" class="sr-only">
+        <!-- toggle lines and labels, initially visible -->
+        <input type="checkbox" id="check-lat-long-lines-layer" onclick="toggleCSSLayer(this, 'lat-long-lines-layer') & toggleCSSLayer(this, 'lat-long-lines-label');" checked="checked" class="sr-only">
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-lat-long-lines-layer" title="Hide or show latitude and longitude lines">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -382,13 +398,16 @@
       <h2 style="margin-top: 2em">Sources and credits</h2>
       <h3 style="margin-top: 0.5em">BAS</h3>
       <p>
+        <!-- cspell: disable -->
         Gerrish, L., Fretwell, P., & Cooper, P. (2022). Medium resolution vector
         polylines of the Antarctic coastline (7.5) [Data set]. UK Polar Data Centre,
         Natural Environment Research Council, UK Research & Innovation.
         https://doi.org/10.5285/4e09c5d9-edf4-448e-aea7-2e56e9376aae
+        <!-- cspell: enable -->
       </p>
       <h3 style="margin-top: 1em">Quantarctica</h3>
       <p>
+        <!-- cspell: disable -->
         Kenichi Matsuoka, Anders Skoglund, George Roth, Jean de Pomereu, Huw Griffiths,
         Robert Headland, Brad Herried, Katsuro Katsumata, Anne Le Brocq, Kathy Licht,
         Fraser Morgan, Peter D. Neff, Catherine Ritz, Mirko Scheinert, Takeshi Tamura,
@@ -398,6 +417,7 @@
         Ocean, and sub-Antarctic islands", <em>Environmental Modelling & Software</em>,
         Volume 140 (2021), 105015, ISSN 1364-8152, https://doi.org/10.1016/j.envsoft.2021.105015
         (https://www.sciencedirect.com/science/article/pii/S136481522100058X)
+        <!-- cspell: enable -->
       </p>
       <h3 style="margin-top: 1em">GeoNames feature names</h3>
       <p>
@@ -436,6 +456,8 @@
   <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js" integrity="sha512-nMxgrgYu7vo/LNe5NFHZOIkwbodaU13UdYiDoDCuo3P2sryEyffrk1R3c2tFGbZ83AqaMbO19yhKnVgHztuqAw==" crossorigin="anonymous"></script>
   <!-- local copy of mouse position from https://github.com/ardhi/Leaflet.MousePosition -->
   <script src="./scripts/L.Control.MousePosition.js" integrity="sha512-Mbie6HGpBo+1KN7xX3KcDqUEI5yubvRg8MfxSdAZDwAwoKCSo0k9KUMXvcuqVAv/2EnvUUywf6siMwS4LIECZw=="></script>
+  <!-- local copy of ZoomCSS from https://github.com/dagjomar/Leaflet.ZoomCSS -->
+  <script src="./scripts/leaflet.zoomcss.js" integrity="sha512-RIOXZTnlivKne5JIycpgWpJc4/LhyLiI+eTTWHi7lgSngAN2HoAb1XG5atioNXm8Bq3ZTa2d83RcVgKivZMHKQ=="></script>
 
   <!-- scripts for page -->
   <script type="text/javascript">
@@ -770,7 +792,14 @@
             if (fileName === 'ccamlr-vmes') {
               return L.marker(latlng, { icon: svgVmeIcon });
             } else if (fileName === 'geonames-selected-feature-names') {
-              return L.marker(latlng, { icon: new L.DivIcon({ className: 'feature-name', html: feature.properties.name }) });
+              return L.marker(latlng, {
+                icon: new L.DivIcon({
+                  className: 'feature-name',
+                  // if the feature is land, only make visible at zoom level 4 or above
+                  // if the feature is an island, make visible at zoom 2 or above
+                  html: `<span${feature.properties.feature_class === 'L' ? ' class="z4-and-above"' : feature.properties.feature_class === 'T' ? ' class="z2-and-above"' : ''}>${feature.properties.name}</span>`
+                })
+              });
             } else {
               return L.marker(latlng);
             }
@@ -843,7 +872,24 @@
           // CSS class for styling and hiding/showing
           className: 'lat-long-lines-layer',
           // not interactive
-          interactive: false
+          interactive: false,
+          // add a single label per lat/long line
+          onEachFeature: (feature, layer) => {
+            L.marker(new L.LatLng(
+              // longitude labels just inside outer limit of 40 degrees south
+              layer.getBounds().getNorth() - 3,
+              layer.getBounds().getCenter().lng
+            ), {
+              icon: L.divIcon({
+                // label text is "Longitude" property
+                html: feature.properties.Longitude,
+                iconSize: [40, 20],
+                className: 'lat-long-lines-label'
+              }),
+              // labels are not clickable
+              interactive: false
+            }).addTo(map);
+          }
         }).addTo(map);
       });
     // load graticule shapefiles part 2: latitude lines (projected as circles)
@@ -859,7 +905,17 @@
             fillColor: 'transparent'
           }),
           className: 'lat-long-lines-layer',
-          interactive: false
+          interactive: false,
+          onEachFeature: (feature, layer) => {
+            L.marker(layer.getBounds().getCenter(), {
+              icon: L.divIcon({
+                html: feature.properties.Latitude,
+                iconSize: [40, 20],
+                className: 'lat-long-lines-label'
+              }),
+              interactive: false
+            }).addTo(map);
+          }
         }).addTo(map);
       });
 
