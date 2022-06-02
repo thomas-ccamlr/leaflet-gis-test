@@ -1,0 +1,453 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.9833,
+          -63.4
+        ]
+      },
+      "properties": {
+        "name": "Esperanza Station (Hope Bay)",
+        "description": "Esperanza Station is a permanent Argentine base built in 1952. It is located on the north of the Antarctic Peninsula at Hope Bay, Trinity Peninsula (Subarea 48.1). A large Adelie penguin colony is monitored for parameters such as adult arrival weight, breeding population size, breeding success, chick weight at fledging and chick diet."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -44.5181,
+          -60.7286
+        ]
+      },
+      "properties": {
+        "name": "Laurie Island",
+        "description": "Laurie Island (Subarea 48.2) is located in the South Orkney Islands where the Argentine station Orcadas Base was established in 1904 and remains the longest-operating base in Antarctica.  The adult arrival weight, breeding population size, breeding success and chick weight at fledging of Adelie penguins are monitored."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6167,
+          -62.2667
+        ]
+      },
+      "properties": {
+        "name": "Stranger Point (King George Island)",
+        "description": "Stranger Point is an area in the southwest of King George Islands, in the South Shetland Islands (Subarea 48.1). Research at Stranger Point is conducted from the permanent Argentine base, originally established as Jubany in 1953 and renamed as Carlini in 2012. The following parameters are monitored in the area for Adelie penguins: adult arrival weight, breeding population size, breeding success, chick weight at fledging and chick diet."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.486,
+          -66.2825
+        ]
+      },
+      "properties": {
+        "name": "Shirley Island (Casey Station)",
+        "description": "Shirley Island (Division 58.4.1) is administered by Australia and a part of the remote camera network to monitor penguins. Shirley Island (Division 58.4.1) is administered by Australia out of Casey Station and is a part of the remote camera network to monitor penguins. Located in Wilkes Land. Data should be available on an annual basis."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          62.8167,
+          -67.5833
+        ]
+      },
+      "properties": {
+        "name": "Bechervaise Island",
+        "description": "Bechervaise Island (Division 58.4.2) is the largest of the Flat Islands in Holme Bay close to Mawson Station (founded in 1954). Scientists from the Australian Antarctic Division undertake monitoring of the breeding population size, breeding success and breeding chronology of Adelie penguins."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          62.8834,
+          -67.576
+        ]
+      },
+      "properties": {
+        "name": "Verner Island (Mawson Station)",
+        "description": "Verner Island (Division 58.4.2) is administered by Australia out of Mawson Station and is a part of the remote camera network to monitor penguins. Located in Mac. Robertson Land. Data should be available on an annual basis."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.7667,
+          -62.4667
+        ]
+      },
+      "properties": {
+        "name": "Cape Shirreff",
+        "description": "Cape Shirreff is located on the northern point of Livingston Island in the South Shetland Islands (Subarea 48.1). The USA monitors the breeding population size, foraging duration, breeding success, chick weight at fledging, chick diet and breeding chronology of chinstrap and gentoo penguins. Monitoring of foraging trip duration and seal pup growth of Antarctic fur seals is also conducted."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4944,
+          -64.8258
+        ]
+      },
+      "properties": {
+        "name": "Goudier Island",
+        "description": "Goudier Island (Subarea 48.1) was discovered by a French Expedition in the 1900s. During the Second World War the British established the first permanent British research station called base 'A' at Port Lockroy/Goudier Island. It was abandoned in 1962, before being designated a historic site and monument under the Antarctic Treaty in 1996 and restored as the Port Lockroy museum. Staff from the museum monitor the breeding population size and breeding success of gentoo penguins."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -45.6,
+          -60.717
+        ]
+      },
+      "properties": {
+        "name": "Signy Island",
+        "description": "Signy Island is located in the South Orkney Islands (Subarea 48.2). UK scientists from Signy Research Station monitor the breeding population size, breeding success, chick weight at fledging, chick diet and breeding chronology of Adelie and chinstrap penguins. The population size and breeding success of gentoo penguins are also monitored."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -38.05,
+          -54.0167
+        ]
+      },
+      "properties": {
+        "name": "Bird Island",
+        "description": "Bird Island (Subarea 48.3) is at the northwest tip of South Georgia. The British research station was established in 1957 and has been in year-round operation since 1982. The adult arrival weight, breeding population size, breeding success, chick weight at fledging and chick diet of macaroni penguins are monitored, as are the breeding population size, breeding success and chick weight at fledging of gentoo penguins. Foraging trip duration and pup growth are monitored for Antarctic fur seals, as are the breeding population size and breeding success of black-browed albatross."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -36.5,
+          -54.2333
+        ]
+      },
+      "properties": {
+        "name": "Maiviken",
+        "description": "Maiviken is located at the north end of Thatcher Peninsula, close to the UK-operated King Edward Point Research Station on South Georgia (Subarea 48.3).  The breeding population size, breeding success and chick weight at fledging of gentoo penguins are monitored, as well as seal pup growth of Antarctic fur seals."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          165.06,
+          -74.142
+        ]
+      },
+      "properties": {
+        "name": "Edmonson Point",
+        "description": "Edmonson Point (Subarea 88.1) is located in Wood Bay, Ross Sea, with research conducted out of the Italian Terra Nova Bay Station, renamed Mario Zucchelli Station in 2004. The Adelie penguin population is monitored for breeding population size."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.6833,
+          -69
+        ]
+      },
+      "properties": {
+        "name": "Syowa Station",
+        "description": "Syowa Station (Division 58.4.2) is a permanent Japanese research station established in 1957, located on the East Ongul Island in Holm Bay, East Antarctica, where the breeding population size of Adelie penguins is monitored."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.7743,
+          -62.2373
+        ]
+      },
+      "properties": {
+        "name": "Narebski Point",
+        "description": "Narebski Point is a headland on the southeast coast of the Barton Peninsula, at the southwestern end of King George Island in the South Shetland Islands (Subarea 48.1). Research is conducted out of the South Korean King Sejong Station. Breeding population size is monitored for gentoo and chinstrap penguins."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.2833,
+          -54.4033
+        ]
+      },
+      "properties": {
+        "name": "Bouvet Island",
+        "description": "Bouvet Island is a sub-Antarctic island and established nature reserve in the South Atlantic Ocean (Subarea 48.6). The Norwegian Polar Institute operates a small research station designed for shorts stays of 2 to 4 months at a time. Foraging behaviour and seal pup growth of Antarctic fur seals are monitored discontinuously, as well as the breeding population size and success of chinstrap and macaroni penguins. Additionally, chinstrap penguins are also sometimes monitored for diet composition."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          166.417,
+          -77.2333
+        ]
+      },
+      "properties": {
+        "name": "Ross Island",
+        "description": "Ross Island (Subarea 88.1) is located in the western Ross Sea. Research is conducted out of the permanent New Zealand station Scott Base, established in 1957. The Adelie penguin population is monitored for breeding population size."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.1167,
+          -62.1333
+        ]
+      },
+      "properties": {
+        "name": "Lions Rump (King George Island)",
+        "description": "Lions Rump is a headland on the western side of King George Island in the South Shetland Islands (Subarea 48.1). Research is conducted from the Polish Antarctic Station, Henryk Arctowski, to monitor Adelie and gentoo penguins breeding population size, breeding success and chick weight, as well as breeding population size and breeding success of chinstrap penguins."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.13,
+          -65.16
+        ]
+      },
+      "properties": {
+        "name": "Petermann Island",
+        "description": "Petermann Island is located in the Wilhelm Archipelago around 2 km west of the Antarctic Peninsula (Subarea 48.1). The nearest scientific base is the Ukrainian station Vernadsky. This station was originally established by the UK and transferred to Ukraine in 1996. Gentoo and Adelie penguins are monitored for breeding population size and success."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.23,
+          -65.23
+        ]
+      },
+      "properties": {
+        "name": "Galindez Island",
+        "description": "Galindez Island (Subarea 48.1) is part of the Argentine Islands, Wilhelm Archipelago. The Ukrainian station Vernadsky is located on Galindez Island. The gentoo penguins are monitored for population size and breeding success."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.4167,
+          -62.1667
+        ]
+      },
+      "properties": {
+        "name": "Admiralty Bay",
+        "description": "Admiralty Bay is located on the eastern side of King George Island in the South Shetland Islands (Subarea 48.1). The USA has a long-term research program in this area and operates the Pieter J. Lenie Field Station (also known as Copacabana). Adelie and gentoo penguins are monitored here for parameters such as foraging duration, breeding success, chick diet and breeding chronology. Adelie penguins are also monitored at Admiralty Bay for breeding success, chick weight at fledging, chick diet and breeding chronology."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.8853,
+          -62.2108
+        ]
+      },
+      "properties": {
+        "name": "Ardley Island",
+        "description": "Ardley Island is located in the Fildes region, southwest of King George Island, South Shetland Islands (Subarea 48.1), is an Antarctic Specially Protected Area (ASPA No. 150). Located close to research stations from China, Chile, Russia and Uruguay, since the 1980s, penguin colonies have been monitored there by a research group from the University of Jena, Germany. As part of a project funded by the CCAMLR Scientific Scholarship Scheme, in 2019-2020 a monitoring program using standard methods of the CCAMLR Ecosystem Monitoring Program was initiated in collaboration with the University of Jena. Parameters recorded of the Adelie and Gentoo penguin colonies nesting on Ardley Island are size of the breeding population, reproductive success and weight of the chick at fledging."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.8525,
+          -46.7731
+        ]
+      },
+      "properties": {
+        "name": "Marion Island",
+        "description": "Marion Island (Subarea 58.7), is one of the two Prince Edward Islands that were discovered in 1663 and claimed for South Africa in 1947. The macaroni penguin population is monitored for parameters such as adult arrival weight, breeding success, chick weight at fledging, chick diet and breeding chronology. Gentoo penguins are monitored for breeding population size, breeding success, chick weight at fledging and breeding chronology."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          170.213,
+          -72.3194
+        ]
+      },
+      "properties": {
+        "name": "Cape Hallett",
+        "description": "Cape Hallett (Subarea 88.1) was designated a CEMP site in 2018, with monitoring efforts operating out of the Korean operated Jangbogo Station. Adelie penguins are monitored for breeding population size through an aerial count."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.91,
+          -64.902
+        ]
+      },
+      "properties": {
+        "name": "Paradise Bay",
+        "description": "Paradise Bay is part of the CEMP camera monitoring network, with researchers operating out of Brown Station. Cameras monitor breeding success and chronology of Gentoo penguins."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          62.5391,
+          -67.6055
+        ]
+      },
+      "properties": {
+        "name": "Maggs Island",
+        "description": "Maggs Island (Division 58.4.2) is administered by Australia out of Mawson Station and is a part of the remote camera network to monitor penguins. Located in Mac. Robertson Land. Data should be available on an annual basis."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.8706,
+          -68.5795
+        ]
+      },
+      "properties": {
+        "name": "Gardner Island",
+        "description": "Gardner Island (Divison 58.4.2) is administered by Australia out of Davis Research Station and is a part of the remote camera network to monitor penguins. Located in Princess Elizabeth Land. Data should be available on an annual basis."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6804,
+          -68.8236
+        ]
+      },
+      "properties": {
+        "name": "Hop Island",
+        "description": "Hop Island (Division 58.4.2) is administered by Australiaout of Davis Research Station and is a part of the remote camera network to monitor penguins. Located in Princess Elizabeth Land. Data typically submitted one year following season due to access via helicopter."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.5662,
+          -69.3381
+        ]
+      },
+      "properties": {
+        "name": "Steinnes Island Group",
+        "description": "Steinnes Island Group (Division 58.4.2) is administered by Australia out of Davis Research Station and is a part of the remote camera network to monitor penguins. Located in Princess Elizabeth Land. Data typically submitted one year following season due to access via helicopter."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.576,
+          -66.2401
+        ]
+      },
+      "properties": {
+        "name": "Blakeney Point",
+        "description": "Blakeney Point (Division 58.4.1) is administered by Australia out of Casey Station and is a part of the remote camera network to monitor penguins. Located in Wilkes Land."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.563,
+          -66.3771
+        ]
+      },
+      "properties": {
+        "name": "Odbert Island",
+        "description": "Odbert Island (Division 58.4.1) is administered by Australia out of Casey Station and is a part of the remote camera network to monitor penguins. Located in Wilkes Land. Data should be available on an annual basis."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.167,
+          -65.233
+        ]
+      },
+      "properties": {
+        "name": "Yalour Island",
+        "description": "Yalour Islands is a group of islands in the south of the Wilhelm Archipelago, in the Antarctic Peninsula. It was discovered by the French Antarctic Expedition in 1903 and is now run by Ukraine. Gentoo and Adelie penguins are both monitored for breeding population size and success."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140,
+          -66.66
+        ]
+      },
+      "properties": {
+        "name": "Petrel Island (Dumont d'Urville Station)",
+        "description": "Data collection is administered by France, operating out of Dumont d'Urville Station. Data is collected on Adelie penguins."
+      }
+    }
+  ]
+}

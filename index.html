@@ -384,6 +384,16 @@
         </label>
         <a href="./layers/ccamlr-vmes.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (17KB)</a>
       </div>
+      <div class="c-checkbox c-checkbox--svg">
+        <input type="checkbox" id="check-cemp-icon" onclick="toggleJSONLayer(this,'ccamlr-cemp-sites');" class="sr-only">
+        <label class="c-checkbox__label c-checkbox__label--svg" for="check-cemp-icon" title="Hide or show CEMP sites">
+          <svg viewBox="0 0 100 100">
+            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
+          </svg>
+          CCAMLR Ecosystem Monitoring Program (CEMP) sites
+        </label>
+        <a href="./layers/ccamlr-cemp-sites.json" type="application/json" class="download-link" title="Download the file in JSON format" download>Download JSON (19KB)</a>
+      </div>
       <div id="show-mouse-position" class="c-checkbox c-checkbox--svg" style="margin-top: 20px">
         <!-- show/hide mouse position control
              disabled in javascript on mobile -->
@@ -684,6 +694,14 @@
       className: 'vme-icon',
     });
 
+    // custom SVG icon for CEMP sites
+    const svgCempIcon = L.divIcon({
+      html: '<svg width="10" height="10" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="50%" cy="50%" r="40%" stroke="#f1faf2" stroke-width="2" fill="#FFE70F"/></svg>',
+      iconSize: [10, 10],
+      iconAnchor: [5, 5],
+      className: 'cemp-icon',
+    });
+
     // function called once for each GeoJSON "feature"
     // add popup HTML tooltip from "name" (and "description" if it exists) properties
     // adapted from https://javascript.tutorialink.com/dynamically-loading-multiple-external-geojson-data-files-and-calling-multiple-layers-dynamically-using-leaflet/
@@ -788,7 +806,7 @@
           // called for each feature
           pointToLayer: (feature, latlng) => {
             // return marker set to render custom icon
-            // if "ccamlr-vmes" layer, render as VME icons
+            // if "ccamlr-vmes" layer, render as VME icons, if CEMP sites render as CEMP icon
             if (fileName === 'ccamlr-vmes') {
               return L.marker(latlng, { icon: svgVmeIcon });
             } else if (fileName === 'geonames-selected-feature-names') {
@@ -800,6 +818,8 @@
                   html: `<span${feature.properties.feature_class === 'L' ? ' class="z4-and-above"' : feature.properties.feature_class === 'T' ? ' class="z2-and-above"' : ''}>${feature.properties.name}</span>`
                 })
               });
+            } else if (fileName === 'ccamlr-cemp-sites') {
+              return L.marker(latlng, { icon: svgCempIcon });
             } else {
               return L.marker(latlng);
             }
@@ -844,6 +864,8 @@
             weight: 1.2,
             opacity: 0.8,
             // no fill
+            // can't fill the coastline layer (even using path.coastline-layer CSS)
+            // as it looks to be a set of lines rather than a polygon
             fillColor: 'transparent'
           }),
           // CSS class for additional styling and hiding/showing
