@@ -289,10 +289,6 @@
       .asd-label {
         filter: brightness(1.5);
       }
-      /* coastline layer */
-      .coastline-layer {
-        filter: saturate(0.7) brightness(0.6);
-      }
       /* sidebar */
       .sidebar {
         background-color: #111112;
@@ -322,21 +318,12 @@
       <a id="return-to-map-link" href="javascript:hideSidebar()">Return to the map</a>
       <p style="margin-bottom: 4px">Select one or more layers to view on the map:</p>
       <!-- layer visibility controls
-           accessible checkboxes from https://codepen.io/shadeed/pen/dybqdGP -->
+           accessible checkboxes from https://codepen.io/shadeed/pen/dybqdGP
+           selected major feature names from GeoNames Gazetteer http://www.geonames.org -->
       <div class="c-checkbox c-checkbox--svg">
         <!-- HTML checkbox will be hidden by CSS -->
-        <input type="checkbox" id="check-basemap-layer" onclick="toggleCSSLayer(this, 'basemap-layer');" checked="checked" class="sr-only">
-        <!-- custom SVG checkbox displayed instead -->
-        <label class="c-checkbox__label c-checkbox__label--svg" for="check-basemap-layer" title="Hide or show oceans and landmass">
-          <svg viewBox="0 0 100 100">
-            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
-          </svg>
-          Oceans and landmass
-        </label>
-      </div>
-      <!-- selected major feature names from GeoNames Gazetteer http://www.geonames.org -->
-      <div class="c-checkbox c-checkbox--svg">
         <input type="checkbox" id="check-feature-names" onclick="toggleJSONLayer(this,'geonames-selected-feature-names');" class="sr-only">
+        <!-- custom SVG checkbox displayed instead -->
         <label class="c-checkbox__label c-checkbox__label--svg" for="check-feature-names" title="Hide or show feature names">
           <svg viewBox="0 0 100 100">
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
@@ -352,15 +339,6 @@
             <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
           </svg>
           Latitude & longitude
-        </label>
-      </div>
-      <div class="c-checkbox c-checkbox--svg">
-        <input type="checkbox" id="check-coastline-layer" onclick="toggleCSSLayer(this, 'coastline-layer');" checked="checked" class="sr-only">
-        <label class="c-checkbox__label c-checkbox__label--svg" for="check-coastline-layer" title="Hide or show Antarctic coastline">
-          <svg viewBox="0 0 100 100">
-            <path class="path" fill="none" stroke="#000" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.1 52.1l24.4 24.4 53-53"/>
-          </svg>
-          Antarctic coastline
         </label>
       </div>
       <div class="c-checkbox c-checkbox--svg">
@@ -406,13 +384,10 @@
         </label>
       </div>
       <h2 style="margin-top: 2em">Sources and credits</h2>
-      <h3 style="margin-top: 0.5em">BAS</h3>
+      <h3 style="margin-top: 0.5em">ESRI</h3>
       <p>
         <!-- cspell: disable -->
-        Gerrish, L., Fretwell, P., & Cooper, P. (2022). Medium resolution vector
-        polylines of the Antarctic coastline (7.5) [Data set]. UK Polar Data Centre,
-        Natural Environment Research Council, UK Research & Innovation.
-        https://doi.org/10.5285/4e09c5d9-edf4-448e-aea7-2e56e9376aae
+        Esri, PGC, UMN, NSF, NGA, DigitalGlobe
         <!-- cspell: enable -->
       </p>
       <h3 style="margin-top: 1em">Quantarctica</h3>
@@ -453,7 +428,7 @@
   <!-- Proj4Leaflet from CDN, see https://github.com/kartena/Proj4Leaflet -->
   <script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js" integrity="sha512-NA+0vegFw6AiYXT23H+hk43LxqwpJkkviK/vHTESeu+jUpvWssfQRWWqSR07aUhGSKtfpkdlE8YFrVaHsnb3jw==" crossorigin="anonymous"></script>
   <!-- PouchDB for in-browser caching from CDN, see https://pouchdb.com/ -->
-  <script src="https://unpkg.com/pouchdb@^5.2.0/dist/pouchdb.js" integrity="sha512-V3KeJQJGLxtQTBpiZCjNNxVMoTgT1L8nd6/HZ9U7LrVM2CLKZttqZhyMibZetm7KGr8WO6iYmsdpdwPEltE2yA==" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/pouchdb@5.2.0/dist/pouchdb.js" integrity="sha512-Tk0rqCZMVjBYoe6syn75Ay1eq7cpT3dYQQiGjZDagqSSsOngl6OG08SF70sEj82xb1a3R6402CsYVMCV+AV8ug==" crossorigin="anonymous"></script>
   <!-- Leaflet.TileLayer.PouchDBCached from CDN, see https://github.com/MazeMap/Leaflet.TileLayer.PouchDBCached -->
   <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js" integrity="sha512-1nmvAgS3BuRHdL/jYmw+Y55aagEd0xllTA9WTAAqkObDcemLTmqB0jJfLhhdN4drvX7WY671Evj+11i2U+DKTA==" crossorigin="anonymous"></script>
   <!-- Leaflet plugin for permalink/URL hash, served locally, originally from https://github.com/MarcChasse/leaflet.Permalink -->
@@ -468,6 +443,8 @@
   <script src="./scripts/L.Control.MousePosition.js" integrity="sha512-Mbie6HGpBo+1KN7xX3KcDqUEI5yubvRg8MfxSdAZDwAwoKCSo0k9KUMXvcuqVAv/2EnvUUywf6siMwS4LIECZw=="></script>
   <!-- local copy of ZoomCSS from https://github.com/dagjomar/Leaflet.ZoomCSS -->
   <script src="./scripts/leaflet.zoomcss.js" integrity="sha512-RIOXZTnlivKne5JIycpgWpJc4/LhyLiI+eTTWHi7lgSngAN2HoAb1XG5atioNXm8Bq3ZTa2d83RcVgKivZMHKQ=="></script>
+  <!-- ESRI Leaflet plugin from CDN, see https://developers.arcgis.com/esri-leaflet/ -->
+  <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js" integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA==" crossorigin="anonymous"></script>
 
   <!-- scripts for page -->
   <script type="text/javascript">
@@ -558,6 +535,16 @@
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer">OpenStreetMap</a> contributors, &copy; <a href="https://openmaptiles.org" rel="noopener noreferrer">OpenMapTiles</a>'
     }).addTo(map);
 
+    // Antarctic hillshade (and ice extent)
+    // from https://thfixhodrtwikdrn.maps.arcgis.com/home/item.html?id=5c80c6a856424275b9f2f532707c5a4f
+    // requires ESRI Leaflet plugin
+    L.esri.imageMapLayer({
+      url: 'https://elevation2.arcgis.com/arcgis/rest/services/Polar/AntarcticDEM/ImageServer',
+      attribution: 'Esri, PGC, UMN, NSF, NGA, DigitalGlobe',
+      // make mostly transparent, will be overlayed on basemap
+      opacity: 0.25
+    }).addTo(map);
+    
     // mouse position control (made visible by user in sidebar)
     // only if not on mobile (mobile has touch, mouse position not needed)
     // from https://github.com/ardhi/Leaflet.MousePosition
@@ -846,40 +833,12 @@
 
     // load shapefiles (collection of files with same name but different extensions)
     // then add GeoJSON layers to map using shapefile-js from https://github.com/calvinmetcalf/shapefile-js
-    // first, coastline layer downloaded from https://data.bas.ac.uk/full-record.php?id=GB/NERC/BAS/PDC/01635
+    // first, graticule shapefiles part 1: longitude lines every 30 degrees
+    // shape files from Quantarctica
     // leave off extension, shapefile-js will load shp, prj, dbf and cpg files
     // with same name from same directory
-    // (note the coastline layer may display after other layers as coastline
-    // shapefile is largish at around 11MB, zipped to 2.7MB)
     // need full URL, not relative, so use somewhat hacky way to get domain from
     // document.baseURI
-    // load from ZIP file, reduces network load by 80%
-    shp(new URL(document.baseURI).origin + '/layers/add_coastline_medium_res_line_v7_5/add_coastline_medium_res_line_v7_5.shp.zip')
-      .then((data) => {
-        // add GeoJSON layer, set style
-        L.geoJson(data, {
-          style: () => ({
-            // line color
-            color: '#5EBCFF',
-            weight: 1.2,
-            opacity: 0.8,
-            // no fill
-            // can't fill the coastline layer (even using path.coastline-layer CSS)
-            // as it looks to be a set of lines rather than a polygon
-            fillColor: 'transparent'
-          }),
-          // CSS class for additional styling and hiding/showing
-          className: 'coastline-layer',
-          // don't update this layer while zooming - wait till zoom ends
-          updateWhenZooming: false,
-          updateWhenIdle: true,
-          // not interactive
-          interactive: false
-        }).addTo(map);
-      });
-
-    // load graticule shapefiles part 1: longitude lines every 30 degrees
-    // shape files from Quantarctica
     shp(new URL(document.baseURI).origin + '/layers/quantarctica-graticules-30dg-longitude/30dg_longitude')
       .then((data) => {
         L.geoJson(data, {
